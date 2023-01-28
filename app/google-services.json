@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "32059302317",
+    "firebase_url": "https://carerpatient-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "carerpatient",
+    "storage_bucket": "carerpatient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32059302317:android:6aca524cb771508020c124",
+        "android_client_info": {
+          "package_name": "ie.wit.carerpatient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32059302317-ncu00furospp7t9nvo7hoovdp59p0boq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvGaQJE1kdzektfWadKaz0fldfu-Yo0Mw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32059302317-fst32243gd3ln94t00tvl25il825a1ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

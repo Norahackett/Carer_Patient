@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.1415" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1415" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable-v24/ic_menu_medicine.xml" value="0.171" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable-v24/ic_menu_report.xml" value="0.171" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/ic_baseline_medical.xml" value="0.1775" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/ic_baseline_medical_services_24.xml" value="0.2345" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2315" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/ic_menu_share.xml" value="0.249" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/ic_swipe_delete.xml" value="0.118" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/progress_bar.xml" value="0.2305" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/drawable/side_nav_bar.xml" value="0.118" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/app_bar_home.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/card_donation.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/card_medicine.xml" value="0.2" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/content_home.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/content_main.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/fragment_about.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/fragment_detail.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/fragment_medicine.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/fragment_report.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/home.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/loading.xml" value="0.19927536231884058" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/login.xml" value="0.209375" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/nav_header.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/splash_screen.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/layout/togglebutton_layout.xml" value="0.2109375" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/menu/menu_donate.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/menu/menu_medicine.xml" value="0.2" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/menu/menu_report.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/norah/AndroidStudioProjects/CarerPatient/app/src/main/res/menu/nav_drawer_menu.xml" value="0.3645833333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
