@@ -2,10 +2,12 @@ package ie.wit.carerpatient.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import ie.wit.carerpatient.R
+import com.squareup.picasso.Picasso
 import ie.wit.carerpatient.databinding.CardMedicineBinding
 import ie.wit.carerpatient.models.CarerPatientModel
+import ie.wit.carerpatient.utils.customTransformation
 
 interface CarerPatientClickListener {
     fun onCarerPatientClick(medicine: CarerPatientModel)
@@ -43,7 +45,12 @@ class CarerPatientAdapter constructor(private var medicines: ArrayList<CarerPati
         fun bind(medicine: CarerPatientModel, listener: CarerPatientClickListener) {
             binding.root.tag = medicine
             binding.medicine = medicine
-            binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
+            Picasso.get().load(medicine.profilepic.toUri())
+                .resize(200, 200)
+                .transform(customTransformation())
+                .centerCrop()
+                .into(binding.imageIcon)
+
             binding.root.setOnClickListener { listener.onCarerPatientClick(medicine) }
             binding.executePendingBindings()
         }

@@ -5,7 +5,7 @@
     android:id="@+id/aboutFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_primary"
+    android:background="@color/white"
     tools:context=".ui.about.AboutFragment">
 
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/aboutus_message"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#FF000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

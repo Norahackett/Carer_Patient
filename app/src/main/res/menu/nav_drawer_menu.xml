@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/medicineFragment"
-            android:icon="@drawable/ic_menu_medicine"
+            android:icon="@drawable/ic_baseline_medical"
             android:title="@string/action_medicine" />
         <item
             android:id="@+id/reportFragment"

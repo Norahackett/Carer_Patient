@@ -1,13 +1,11 @@
 package ie.wit.carerpatient.firebase
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -25,8 +23,6 @@ class FirebaseAuthManager(application: Application) {
     var loggedOut = MutableLiveData<Boolean>()
     var errorStatus = MutableLiveData<Boolean>()
 
-
-
     init {
         this.application = application
         firebaseAuth = FirebaseAuth.getInstance()
@@ -35,9 +31,12 @@ class FirebaseAuthManager(application: Application) {
             liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
             loggedOut.postValue(false)
             errorStatus.postValue(false)
+            FirebaseImageManager.checkStorageForExistingProfilePic(
+                firebaseAuth!!.currentUser!!.uid)
         }
         configureGoogleSignIn()
     }
+
 
     private fun configureGoogleSignIn() {
 
@@ -50,7 +49,7 @@ class FirebaseAuthManager(application: Application) {
     }
 
     fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        Timber.i( "Carer_Patient firebaseAuthWithGoogle:" + acct.id!!)
+        Timber.i( "CarerPatient firebaseAuthWithGoogle:%s", acct.id!!)
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth!!.signInWithCredential(credential)
@@ -96,8 +95,8 @@ class FirebaseAuthManager(application: Application) {
 
     fun logOut() {
         firebaseAuth!!.signOut()
+        googleSignInClient.value!!.signOut()
         loggedOut.postValue(true)
         errorStatus.postValue(false)
     }
-
 }

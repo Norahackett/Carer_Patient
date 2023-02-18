@@ -7,7 +7,7 @@ interface CarerPatientStore {
     fun findAll(medicinesList:
                 MutableLiveData<List<CarerPatientModel>>)
     fun findAll(userid:String,
-                medicationsList:
+                medicinesList:
                 MutableLiveData<List<CarerPatientModel>>)
     fun findById(userid:String, medicineid: String,
                  medicine: MutableLiveData<CarerPatientModel>)

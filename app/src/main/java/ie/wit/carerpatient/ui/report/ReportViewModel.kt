@@ -26,23 +26,13 @@ class ReportViewModel : ViewModel() {
 
     fun load() {
         try {
-           // FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, medicinesList)
+            // FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, medicinesList)
             readOnly.value = false
-            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,medicinesList)
+            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, medicinesList)
 
             Timber.i("Report Load Success : ${medicinesList.value.toString()}")
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Timber.i("Report Load Error : $e.message")
-        }
-    }
-    fun delete(userid: String, id: String) {
-        try {
-            FirebaseDBManager.delete(userid,id)
-            Timber.i("Report Delete Success")
-        }
-        catch (e: java.lang.Exception) {
-            Timber.i("Report Delete Error : $e.message")
         }
     }
 
@@ -51,9 +41,19 @@ class ReportViewModel : ViewModel() {
             readOnly.value = true
             FirebaseDBManager.findAll(medicinesList)
             Timber.i("Report LoadAll Success : ${medicinesList.value.toString()}")
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Timber.i("Report LoadAll Error : $e.message")
+        }
+    }
+
+    fun delete(userid: String, id: String) {
+        try {
+            //DonationManager.delete(userid,id)
+            FirebaseDBManager.delete(userid,id)
+            Timber.i("Report Delete Success")
+        }
+        catch (e: java.lang.Exception) {
+            Timber.i("Report Delete Error : $e.message")
         }
     }
 }

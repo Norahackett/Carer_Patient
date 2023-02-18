@@ -31,7 +31,6 @@ import ie.wit.carerpatient.utils.*
 
 class ReportFragment : Fragment(), CarerPatientClickListener {
 
-
     private var _fragBinding: FragmentReportBinding? = null
     private val fragBinding get() = _fragBinding!!
     lateinit var loader : AlertDialog
@@ -42,13 +41,11 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?
     ): View? {
         _fragBinding = FragmentReportBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        //activity?.title = getString(R.string.action_report)
         setupMenu()
         loader = createLoader(requireActivity())
 
@@ -61,7 +58,7 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
         reportViewModel.observableMedicinesList.observe(viewLifecycleOwner, Observer {
                 medicines ->
             medicines?.let {
-                render (medicines as ArrayList<CarerPatientModel>)
+                render(medicines as ArrayList<CarerPatientModel>)
                 hideLoader(loader)
                 checkSwipeRefresh()
             }
@@ -69,14 +66,14 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
 
         setSwipeRefresh()
 
-
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showLoader(loader,"Deleting Medincine")
+                showLoader(loader,"Deleting Medicine")
                 val adapter = fragBinding.recyclerView.adapter as CarerPatientAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
                 reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.uid!!,
                     (viewHolder.itemView.tag as CarerPatientModel).uid!!)
+
                 hideLoader(loader)
             }
         }
@@ -94,6 +91,7 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
         return root
     }
 
+
     private fun setupMenu() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onPrepareMenu(menu: Menu) {
@@ -105,10 +103,10 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
 
                 val item = menu.findItem(R.id.toggleMedicine) as MenuItem
                 item.setActionView(R.layout.togglebutton_layout)
-                val toggleMedicine: SwitchCompat = item.actionView!!.findViewById(R.id.toggleButton)
-                toggleMedicine.isChecked = false
+                val toggleMedicines: SwitchCompat = item.actionView!!.findViewById(R.id.toggleButton)
+                toggleMedicines.isChecked = false
 
-                toggleMedicine.setOnCheckedChangeListener { _, isChecked ->
+                toggleMedicines.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) reportViewModel.loadAll()
                     else reportViewModel.load()
                 }
@@ -123,7 +121,8 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
     }
 
     private fun render(medicinesList: ArrayList<CarerPatientModel>) {
-        fragBinding.recyclerView.adapter = CarerPatientAdapter(medicinesList,this, reportViewModel.readOnly.value!!)
+        fragBinding.recyclerView.adapter = CarerPatientAdapter(medicinesList,this,
+            reportViewModel.readOnly.value!!)
         if (medicinesList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.medicinesNotFound.visibility = View.VISIBLE
@@ -135,7 +134,8 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
 
     override fun onCarerPatientClick(medicine: CarerPatientModel) {
         val action = ReportFragmentDirections.actionReportFragmentToDetailFragment(medicine.uid!!)
-        findNavController().navigate(action)
+        if(!reportViewModel.readOnly.value!!)
+            findNavController().navigate(action)
     }
 
     private fun setSwipeRefresh() {
@@ -148,6 +148,7 @@ class ReportFragment : Fragment(), CarerPatientClickListener {
                 reportViewModel.load()
         }
     }
+
     private fun checkSwipeRefresh() {
         if (fragBinding.swiperefresh.isRefreshing)
             fragBinding.swiperefresh.isRefreshing = false

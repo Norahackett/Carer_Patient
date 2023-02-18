@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "32059302317-fvt6h1uqc9utmf0vs4r4ntbdsn7tro8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.wit.carerpatient",
+            "certificate_hash": "87c4eb8d2ac467005932102ef23fe074da61ca1c"
+          }
+        },
+        {
           "client_id": "32059302317-ncu00furospp7t9nvo7hoovdp59p0boq.apps.googleusercontent.com",
           "client_type": 3
         }

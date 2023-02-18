@@ -13,10 +13,10 @@ object FirebaseDBManager : CarerPatientStore {
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     override fun findAll(medicinesList: MutableLiveData<List<CarerPatientModel>>) {
-        database.child("donations")
+        database.child("medicines")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Donation error : ${error.message}")
+                    Timber.i("Firebase Medicines error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -26,7 +26,7 @@ object FirebaseDBManager : CarerPatientStore {
                         val medicine = it.getValue(CarerPatientModel::class.java)
                         localList.add(medicine!!)
                     }
-                    database.child("donations")
+                    database.child("medicines")
                         .removeEventListener(this)
 
                     medicinesList.value = localList
@@ -34,12 +34,12 @@ object FirebaseDBManager : CarerPatientStore {
             })
     }
 
-    override fun findAll(userid: String, medicationsList: MutableLiveData<List<CarerPatientModel>>) {
+    override fun findAll(userid: String, medicinesList: MutableLiveData<List<CarerPatientModel>>) {
 
         database.child("user-medicines").child(userid)
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Medicine error : ${error.message}")
+                    Timber.i("Firebase medicine error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -52,7 +52,7 @@ object FirebaseDBManager : CarerPatientStore {
                     database.child("user-medicines").child(userid)
                         .removeEventListener(this)
 
-                    medicationsList.value = localList
+                    medicinesList.value = localList
                 }
             })
     }
@@ -105,5 +105,26 @@ object FirebaseDBManager : CarerPatientStore {
         childUpdate["user-medicines/$userid/$medicineid"] = medicineValues
 
         database.updateChildren(childUpdate)
+    }
+
+    fun updateImageRef(userid: String,imageUri: String) {
+
+        val userMedicines = database.child("user-medicines").child(userid)
+        val allMedicines = database.child("medicines")
+
+        userMedicines.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        //Update Users imageUri
+                        it.ref.child("profilepic").setValue(imageUri)
+                        //Update all medicines that match 'it'
+                        val medicine = it.getValue(CarerPatientModel::class.java)
+                        allMedicines.child(medicine!!.uid!!)
+                            .child("profilepic").setValue(imageUri)
+                    }
+                }
+            })
     }
 }

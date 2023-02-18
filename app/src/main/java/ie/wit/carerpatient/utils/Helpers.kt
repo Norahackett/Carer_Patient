@@ -4,10 +4,14 @@ package ie.wit.carerpatient.utils
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
+
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentActivity
+import com.makeramen.roundedimageview.RoundedTransformationBuilder
+import com.squareup.picasso.Transformation
 import ie.wit.carerpatient.R
 import java.io.IOException
 
@@ -37,7 +41,7 @@ fun hideLoader(loader: AlertDialog) {
 fun serviceUnavailableMessage(activity: FragmentActivity) {
     Toast.makeText(
         activity,
-        "Medicine Service Unavailable. Try again later",
+        "CarePatient Service Unavailable. Try again later",
         Toast.LENGTH_LONG
     ).show()
 }
@@ -45,10 +49,18 @@ fun serviceUnavailableMessage(activity: FragmentActivity) {
 fun serviceAvailableMessage(activity: FragmentActivity) {
     Toast.makeText(
         activity,
-        "Medicine Contacted Successfully",
+        "CarePatient Contacted Successfully",
         Toast.LENGTH_LONG
     ).show()
 }
+
+fun customTransformation() : Transformation =
+    RoundedTransformationBuilder()
+        .borderColor(Color.WHITE)
+        .borderWidthDp(2F)
+        .cornerRadiusDp(35F)
+        .oval(false)
+        .build()
 
 fun showImagePicker(intentLauncher : ActivityResultLauncher<Intent>) {
     var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
