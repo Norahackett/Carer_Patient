@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/DetailFragment"
         android:name="ie.wit.carerpatient.ui.detail.DetailFragment"
-        android:label="Detail"
+        android:label="Medicine Details"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_DetailFragment_to_reportFragment"

@@ -51,7 +51,7 @@ class MedicineFragment : Fragment() {
 
         fragBinding.amountPicker.setOnValueChangedListener { _, _, newVal ->
             //Display the newly selected number to paymentAmount
-            fragBinding.paymentAmount.setText("$newVal")
+            fragBinding.quantity.setText("$newVal")
         }
         setButtonListener(fragBinding)
 
@@ -72,17 +72,17 @@ class MedicineFragment : Fragment() {
 
     fun setButtonListener(layout: FragmentMedicineBinding) {
         layout.medicineButton.setOnClickListener {
-            val amount = if (layout.paymentAmount.text.isNotEmpty())
-                layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
+            val amount = if (layout.quantity.text.isNotEmpty())
+                layout.quantity.text.toString().toInt() else layout.amountPicker.value
             if(totalMedicine >= layout.progressBar.max)
                 Toast.makeText(context,"Medicine Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                val quantity = if(layout.quantity2.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
                 totalMedicine += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalMedicine)
                 layout.progressBar.progress = totalMedicine
                 medicineViewModel.addMedicine(loggedInViewModel.liveFirebaseUser,
-                    CarerPatientModel(paymentmethod = paymentmethod,amount = amount,
+                    CarerPatientModel(quantity = quantity,amount = amount,
                         email = loggedInViewModel.liveFirebaseUser.value?.email!!)) }
         }
     }

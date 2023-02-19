@@ -50,8 +50,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun render() {
-        fragBinding.editMessage.setText("A Message")
-        fragBinding.editUpvotes.setText("0")
+        fragBinding.editQuantity.setText("A Message")
+        fragBinding.editFrequency.setText("0")
         fragBinding.medicinevm = detailViewModel
         Timber.i("Retrofit fragBinding.medicinevm == $fragBinding.medicinevm")
     }

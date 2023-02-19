@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.948" />
 
     <RadioGroup
-        android:id="@+id/paymentMethod"
+        android:id="@+id/quantity2"
         android:layout_width="181dp"
         android:layout_height="128dp"
         android:layout_above="@+id/progressBar"
@@ -187,7 +187,7 @@
         app:layout_constraintVertical_bias="0.902" />
 
     <EditText
-        android:id="@+id/paymentAmount"
+        android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

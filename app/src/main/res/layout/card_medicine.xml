@@ -32,27 +32,27 @@
                 app:srcCompat="@mipmap/ic_launcher_round" />
 
             <TextView
-                android:id="@+id/paymentamount"
+                android:id="@+id/medicineName"
                 android:layout_width="87dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{Integer.toString(medicine.amount)}"
+                android:text="@{Integer.toString(medicine.medicinename)}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="€1000" />
 
             <TextView
-                android:id="@+id/paymentmethod"
+                android:id="@+id/medicineTime"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="8dp"
-                android:layout_toEndOf="@+id/paymentamount"
-                android:text="@{medicine.paymentmethod}"
+                android:layout_toEndOf="@+id/medicineName"
+                android:text="@{medicine.time2}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="@string/paypal" />
@@ -66,18 +66,18 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/paymentmethod"
+                android:layout_toEndOf="@id/medicineTime"
                 app:srcCompat="@android:drawable/star_big_off" />
 
             <TextView
-                android:id="@+id/message"
+                android:id="@+id/quantity"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/paymentamount"
+                android:layout_below="@+id/medicineTime"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{medicine.message}"
+                android:text="@{medicine.quantity}"
                 android:textColor="@color/color_primary"
                 tools:text="message" />
 

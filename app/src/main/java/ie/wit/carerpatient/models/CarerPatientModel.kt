@@ -11,10 +11,12 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CarerPatientModel(
     var uid: String? = "",
-    var paymentmethod: String = "N/A",
+    var frequency: String = "N/A",
+    var medicinename: Int = 0,
+
     var amount: Int = 0,
-    var message: String = "Homer for President!",
-    var upvotes: Int = 0,
+    var quantity: String = "N/A",
+    var time2: String = "N/A",
     var profilepic: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
@@ -23,12 +25,14 @@ data class CarerPatientModel(
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "uid" to uid,
-            "paymentmethod" to paymentmethod,
-            "amount" to amount,
-            "message" to message,
-            "upvotes" to upvotes,
+            "frequency" to frequency,
+            "medicinename" to medicinename,
+            "quantity" to quantity,
+            "time" to time2,
             "profilepic" to profilepic,
-            "email" to email
+            "email" to email,
+            "amount" to amount
+
         )
     }
 }
