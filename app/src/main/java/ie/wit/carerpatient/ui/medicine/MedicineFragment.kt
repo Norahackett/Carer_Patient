@@ -1,6 +1,5 @@
 package ie.wit.carerpatient.ui.medicine
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -20,43 +19,37 @@ import ie.wit.carerpatient.ui.auth.LoggedInViewModel
 import ie.wit.carerpatient.ui.report.ReportViewModel
 
 
-
 class MedicineFragment : Fragment() {
 
-    var totalMedicine = 0
     private var _fragBinding: FragmentMedicineBinding? = null
-    // This property is only valid between onCreateView and onDestroyView.
-    private val fragBinding get() = _fragBinding!!
     private lateinit var medicineViewModel: MedicineViewModel
+    private val fragBinding get() = _fragBinding!!
     private val reportViewModel: ReportViewModel by activityViewModels()
-    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
+    private val loggedInViewModel: LoggedInViewModel by activityViewModels()
+    var medicine = CarerPatientModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _fragBinding = FragmentMedicineBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
+        val root: View = fragBinding.root
         setupMenu()
         medicineViewModel = ViewModelProvider(this).get(MedicineViewModel::class.java)
         medicineViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
                 status -> status?.let { render(status) }
         })
 
-        fragBinding.progressBar.max = 10000
-        fragBinding.amountPicker.minValue = 1
-        fragBinding.amountPicker.maxValue = 1000
+    setButtonListener(fragBinding)
 
-        fragBinding.amountPicker.setOnValueChangedListener { _, _, newVal ->
-            //Display the newly selected number to paymentAmount
-            fragBinding.quantity.setText("$newVal")
-        }
-        setButtonListener(fragBinding)
-
-        return root;
-    }
+    return root;
+}
 
     private fun render(status: Boolean) {
         when (status) {
@@ -70,22 +63,47 @@ class MedicineFragment : Fragment() {
         }
     }
 
+
     fun setButtonListener(layout: FragmentMedicineBinding) {
         layout.medicineButton.setOnClickListener {
-            val amount = if (layout.quantity.text.isNotEmpty())
-                layout.quantity.text.toString().toInt() else layout.amountPicker.value
-            if(totalMedicine >= layout.progressBar.max)
-                Toast.makeText(context,"Medicine Amount Exceeded!", Toast.LENGTH_LONG).show()
-            else {
-                val quantity = if(layout.quantity2.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
-                totalMedicine += amount
-                layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalMedicine)
-                layout.progressBar.progress = totalMedicine
-                medicineViewModel.addMedicine(loggedInViewModel.liveFirebaseUser,
-                    CarerPatientModel(quantity = quantity,amount = amount,
-                        email = loggedInViewModel.liveFirebaseUser.value?.email!!)) }
+            //val medicinename = layout.medicineName.text.toString()
+            val quantity=  layout.quantity.text.toString().toInt()
+            val medicinename= layout.name.text.toString()
+            val frequency= layout.frequency.text.toString()
+            val time2= layout.time.text.toString()
+            //medicine.quantity =layout.quantity.text.toString().toInt()
+           // medicine.time2=layout.time.text.toString()
+            //if (medicine.medicinename.isEmpty()) {
+              //  Snackbar.make(it, R.string.medicineName, Snackbar.LENGTH_LONG)
+                //    .show()
+
+
+            //  medicine.medicinename = layout.medicinename.text.toString().trim()
+            //medicine.quantity = layout.quantity.text.toString().toInt()
+            //medicine.frequency = layout.frequency.text.toString().toInt()
+            //  medicine.name = layout.name.text.toString().trim()
+            // val amount = if (layout.quantity.text.isNotEmpty())
+            //        layout.quantity.text.toString().toInt() else layout.amountPicker.value
+            // if(totalMedicine >= layout.progressBar.max)
+            //       Toast.makeText(context,"Medicine Amount Exceeded!", Toast.LENGTH_LONG).show()
+            // else {
+            // val quantity = if(layout.quantity2.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+            // totalMedicine += amount
+            // layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalMedicine)
+            //layout.progressBar.progress = totalMedicine
+
+            medicineViewModel.addMedicine(
+                loggedInViewModel.liveFirebaseUser,
+
+                CarerPatientModel( quantity = quantity,medicinename = medicinename, frequency = frequency, time2 = time2,
+                    email = loggedInViewModel.liveFirebaseUser.value?.email!!
+                )
+            )
         }
+
+        // findNavController().popBackStack()
     }
+
 
     private fun setupMenu() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
@@ -99,11 +117,14 @@ class MedicineFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Validate and handle the selected menu item
-                return NavigationUI.onNavDestinationSelected(menuItem,
-                    requireView().findNavController())
+                return NavigationUI.onNavDestinationSelected(
+                    menuItem,
+                    requireView().findNavController()
+                )
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -112,8 +133,9 @@ class MedicineFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        totalMedicine = reportViewModel.observableMedicinesList.value!!.sumOf { it.amount }
-        fragBinding.progressBar.progress = totalMedicine
-        fragBinding.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalMedicine)
-    }
+
+            }
+
+
 }
+

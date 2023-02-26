@@ -39,23 +39,24 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{Integer.toString(medicine.medicinename)}"
+                android:text="@{medicine.medicinename}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                tools:text="€1000" />
+                tools:text="Medicine_name" />
+
 
             <TextView
-                android:id="@+id/medicineTime"
+                android:id="@+id/quantity"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="39dp"
                 android:layout_toEndOf="@+id/medicineName"
-                android:text="@{medicine.time2}"
+                android:text="@{Integer.toString(medicine.quantity)}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                tools:text="@string/paypal" />
+                tools:text="@string/quantity" />
 
             <ImageView
                 android:id="@+id/imagefavourite"
@@ -66,20 +67,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/medicineTime"
+                android:layout_toEndOf="@id/quantity"
                 app:srcCompat="@android:drawable/star_big_off" />
-
-            <TextView
-                android:id="@+id/quantity"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/medicineTime"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{medicine.quantity}"
-                android:textColor="@color/color_primary"
-                tools:text="message" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

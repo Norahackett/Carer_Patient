@@ -3,15 +3,9 @@
     <string name="medicineTitle">Welcome Homer</string>
     <string name="medicineSubtitle">Please Add Medicine</string>
     <string name="medicineButton">Medicine</string>
-    <string name="paypal">PayPal</string>
-    <string name="direct">Direct</string>
+    <string name="medicineHeader">Please Enter Medicine Details</string>
     <string name="medicinename">Medicine Name</string>
-    <string name="total">Total so Far</string>
-    <string name="totalSoFar">$%d</string>
     <string name="reportTitle">Medication Report</string>
-    <string name="defaultAmount">00</string>
-    <string name="defaultMethod">N/A</string>
-    <string name="enter_amount">Enter Amount</string>
     <string name="action_medicine">Medicine</string>
     <string name="action_report">Report</string>
 

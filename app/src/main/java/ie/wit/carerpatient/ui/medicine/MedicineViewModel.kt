@@ -12,10 +12,12 @@ import ie.wit.carerpatient.models.CarerPatientModel
 
 class MedicineViewModel : ViewModel() {
 
+
     private val status = MutableLiveData<Boolean>()
 
     val observableStatus: LiveData<Boolean>
         get() = status
+
 
     fun addMedicine(firebaseUser: MutableLiveData<FirebaseUser>,
                     medicine: CarerPatientModel) {

@@ -11,12 +11,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CarerPatientModel(
     var uid: String? = "",
-    var frequency: String = "N/A",
-    var medicinename: Int = 0,
-
-    var amount: Int = 0,
-    var quantity: String = "N/A",
-    var time2: String = "N/A",
+    var frequency: String = "",
+    var medicinename:  String = "",
+    //var amount: Int = 0,
+    var quantity: Int = 0,
+    var time2: String = "",
     var profilepic: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
@@ -28,10 +27,10 @@ data class CarerPatientModel(
             "frequency" to frequency,
             "medicinename" to medicinename,
             "quantity" to quantity,
-            "time" to time2,
+            "time2" to time2,
             "profilepic" to profilepic,
             "email" to email,
-            "amount" to amount
+            //"amount" to amount
 
         )
     }
