@@ -52,7 +52,7 @@ class ReportViewModel : ViewModel() {
             FirebaseDBManager.delete(userid,id)
             Timber.i("Report Delete Success")
         }
-        catch (e: java.lang.Exception) {
+        catch (e: Exception) {
             Timber.i("Report Delete Error : $e.message")
         }
     }

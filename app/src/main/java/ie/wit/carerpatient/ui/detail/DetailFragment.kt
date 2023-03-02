@@ -41,7 +41,7 @@ class DetailFragment : Fragment() {
         }
 
         fragBinding.deleteMedicineButton.setOnClickListener {
-            reportViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.email!!,
+            reportViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                 detailViewModel.observableMedicine.value?.uid!!)
             findNavController().navigateUp()
         }
@@ -52,6 +52,7 @@ class DetailFragment : Fragment() {
        fragBinding.editMedicineName.setText("Medicine Name")
         fragBinding.editFrequency.setText("Medicine Frequency")
         fragBinding.editTime.setText("Medicine Time")
+        fragBinding.editQuantity.setText("Medicine Quantity")
         fragBinding.medicinevm = detailViewModel
         Timber.i("Retrofit fragBinding.medicinevm == $fragBinding.medicinevm")
     }
