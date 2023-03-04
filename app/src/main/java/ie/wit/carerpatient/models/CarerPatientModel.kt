@@ -17,6 +17,8 @@ data class CarerPatientModel(
     var quantity: Int = 0,
     var time2: String = "",
     var profilepic: String = "",
+    var firstname:String = "",
+    var lastname: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
 {
@@ -30,6 +32,8 @@ data class CarerPatientModel(
             "time2" to time2,
             "profilepic" to profilepic,
             "email" to email,
+            "firstname" to firstname,
+            "lastname" to lastname
             //"amount" to amount
 
         )

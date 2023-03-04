@@ -1,7 +1,7 @@
 package ie.wit.carerpatient.main
 
 import android.app.Application
-import ie.wit.carerpatient.models.CarerPatientStore
+
 import timber.log.Timber
 
 class CarerPatientApp : Application() {

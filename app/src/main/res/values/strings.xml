@@ -9,6 +9,20 @@
     <string name="action_medicine">Medicine</string>
     <string name="action_report">Report</string>
 
+    <string name="enter_medicine_name">Please Enter Medicine Name</string>
+    <string name="enter_quantity">Please Enter Quantity</string>
+    <string name="enter_time">Please Enter Time</string>
+    <string name="enter_frequency">Please Enter Frequency</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_email_address">Email Address</string>
+    <string name= "my_image_description" >Image</string>
+
     <string name="action_share">Share</string>
     <string name="action_send">Send</string>
     <string name="group_communicate">Communicate</string>
@@ -18,6 +32,8 @@
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="action_about">About Us</string>
+    <string name="profile">Profile</string>
+    <string name="appointment">Appointment</string>
     <string name="aboutus_title">Homer for President !!</string>
     <string name="aboutus_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
 
@@ -25,8 +41,19 @@
     <string name="medicineError">Error : Couldn\'t Make a Medciation…</string>
     <string name="medicineDetails">Medicine Details</string>
 
-    <string name="messageLoading">Please Wait while the Medication are Loading...</string>
+    <string name="appointmentTitle">Appointment Title</string>
+    <string name="appointmentName">Appointment Name</string>
+    <string name="appointmentSubtitle">Appointment Sub Titlee</string>
+    <string name="enter_appointment_name">Enter Appointment Name </string>
+    <string name="appointmentButton">Appointment Button </string>
+    <string name="action_appointment">Appointment </string>
+    <string name="action_appointment_list">Appointment List </string>
+    <string name="appointmentsNotFound">No Appointments  added Yet…\nGo add Appointment!</string>
 
+    <string name="appointmentError">Error : Couldn\'t Make a Appointment…</string>
+
+    <string name="messageLoading">Please Wait while the Medication are Loading...</string>
+    <string name="messageloadingapp">Please Wait while the Appointment are Loading...</string>
     <string name="medicineName">Name :</string>
     <string name="quantity">Quantity :</string>
     <string name="frequency"> Frequency :</string>

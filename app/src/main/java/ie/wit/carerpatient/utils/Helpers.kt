@@ -26,6 +26,17 @@ fun createLoader(activity: FragmentActivity) : AlertDialog {
     return loader
 }
 
+fun createLoaderApp(activity: FragmentActivity) : AlertDialog {
+    val loaderBuilder = AlertDialog.Builder(activity)
+        .setCancelable(true) // 'false' if you want user to wait
+        .setView(R.layout.loadingappointments)
+    var loader = loaderBuilder.create()
+    loader.setTitle(R.string.app_name)
+    loader.setIcon(R.mipmap.ic_launcher_round)
+
+    return loader
+}
+
 fun showLoader(loader: AlertDialog, message: String) {
     if (!loader.isShowing) {
         loader.setTitle(message)

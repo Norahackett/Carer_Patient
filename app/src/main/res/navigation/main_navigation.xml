@@ -16,6 +16,34 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
+
+    <fragment
+        android:id="@+id/appointmentFragment"
+        android:name="ie.wit.carerpatient.ui.appointment.AppointmentFragment"
+        android:label="@string/action_appointment"
+        tools:layout="@layout/fragment_appointment" >
+        <action
+            android:id="@+id/action_appointmentFragment_to_appointmentlistFragment"
+            app:destination="@id/appointmentlistFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ie.wit.carerpatient.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_ProfileFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <argument
+            android:name="medicineid"
+            app:argType="string" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/reportFragment"
         android:name="ie.wit.carerpatient.ui.report.ReportFragment"
@@ -31,6 +59,25 @@
         <action
             android:id="@+id/action_reportFragment_to_DetailFragment"
             app:destination="@id/DetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/appointmentlistFragment"
+        android:name="ie.wit.carerpatient.ui.appointmentlist.AppointmentListFragment"
+        android:label="@string/action_appointment_list"
+        tools:layout="@layout/fragment_appointmentlist" >
+        <action
+            android:id="@+id/action_appointmentlistFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <action
+            android:id="@+id/action_appointmentlistFragment_to_appointmentdetailFragment"
+            app:destination="@id/AppointmentDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -49,4 +96,21 @@
             android:name="medicineid"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/AppointmentDetailFragment"
+        android:name="ie.wit.carerpatient.ui.appointmentdetail.AppointmentDetailFragment"
+        android:label="Appointment Details"
+        tools:layout="@layout/fragment_appointmentdetail" >
+        <action
+            android:id="@+id/action_AppointmentDetailFragment_to_appointmentlistFragment"
+            app:destination="@id/appointmentlistFragment" />
+        <argument
+            android:name="appointmentid"
+            app:argType="string" />
+    </fragment>
+
+
+
 </navigation>
+

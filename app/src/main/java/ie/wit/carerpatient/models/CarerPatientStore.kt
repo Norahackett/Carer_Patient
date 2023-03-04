@@ -14,4 +14,14 @@ interface CarerPatientStore {
     fun create(firebaseUser: MutableLiveData<FirebaseUser>, medicine: CarerPatientModel)
     fun delete(userid:String, medicineid: String)
     fun update(userid:String, medicineid: String, medicine: CarerPatientModel)
+    fun findAllAppointment(appointmentsList:
+                MutableLiveData<List<AppointmentModel>>)
+    fun findAllAppointment(userid:String,
+                appointmentsList:
+                MutableLiveData<List<AppointmentModel>>)
+    fun findByIdAppointment(userid:String, appointmentid: String,
+                 appointment: MutableLiveData<AppointmentModel>)
+    fun createAppointment(firebaseUser: MutableLiveData<FirebaseUser>, appointment: AppointmentModel)
+    fun deleteAppointment(userid:String, appointmentid: String)
+    fun updateAppointment(userid:String, appointmentid: String, appointment: AppointmentModel)
 }

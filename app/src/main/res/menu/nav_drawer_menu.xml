@@ -15,6 +15,18 @@
             android:id="@+id/aboutFragment"
             android:icon="@drawable/ic_menu_aboutus"
             android:title="@string/action_about" />
+        <item
+            android:id="@+id/profileFragment"
+            android:icon="@drawable/person"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/appointmentFragment"
+            android:icon="@drawable/person"
+            android:title="@string/appointment" />
+        <item
+            android:id="@+id/appointmentlistFragment"
+            android:icon="@drawable/person"
+            android:title="@string/action_appointment_list" />
     </group>
     <item android:title="@string/group_communicate">
         <menu>
