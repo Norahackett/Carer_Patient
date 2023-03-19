@@ -38,20 +38,24 @@
     <string name="aboutus_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
 
     <string name="medicinesNotFound">No Medicine added Yet…\nGo add Medicine!</string>
+    <string name="remindersNotFound">No Reminder added Yet…\nGo add Reminder!</string>
     <string name="medicineError">Error : Couldn\'t Make a Medciation…</string>
     <string name="medicineDetails">Medicine Details</string>
-
+    <string name="repeat_button">Frequency</string>
+    <string name="quantity_amount_selected">Quantity Amount Selected</string>
+    <string name="time_selected">Time Selected</string>
     <string name="appointmentTitle">Appointment Title</string>
-    <string name="appointmentName">Appointment Name</string>
+    <string name="appointmentName">Name</string>
     <string name="appointmentSubtitle">Appointment Sub Titlee</string>
     <string name="enter_appointment_name">Enter Appointment Name </string>
     <string name="appointmentButton">Appointment Button </string>
     <string name="action_appointment">Appointment </string>
+    <string name="action_reminder">Reminder </string>
     <string name="action_appointment_list">Appointment List </string>
+    <string name="action_reminder_report"> Reminder Report</string>
     <string name="appointmentsNotFound">No Appointments  added Yet…\nGo add Appointment!</string>
-
+    <string name="formatTime">Time Format</string>
     <string name="appointmentError">Error : Couldn\'t Make a Appointment…</string>
-
     <string name="messageLoading">Please Wait while the Medication are Loading...</string>
     <string name="messageloadingapp">Please Wait while the Appointment are Loading...</string>
     <string name="medicineName">Name :</string>
@@ -85,6 +89,43 @@
     <string name="firebase_user_management">Firebase User Management</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="FrequencyButton">Frequency Button</string>
+
+    <string name="notification"> Notification</string>
+    <string name="notification_title"> Notification Title</string>
+    <string name="notification_channel_id"> Notification Channel id</string>
+    <string name="notification_channel_name">Notification Channel name</string>
+
+    <string name="timer_running">Timer Running</string>
+    <string-array name="days_of_the_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+
+    <string-array name="List_Medicine_Type">
+        <item>Pill</item>
+        <item>Capsule</item>
+        <item>Syringe</item>
+        <item>Drops</item>
+
+    </string-array>
+
+    <plurals name="numberOfSongsAvailable">
+        <item quantity="one">%d week</item>
+        <item quantity="other">%d weeks</item>
+    </plurals>
+
+
+
+
+    <string name="once_off">Once Off</string>
+    <string name="repeat">Repeating</string>
 
     <string name="select_profile_image">Select Profile Image</string>
 </resources>

@@ -1,17 +1,34 @@
 package ie.wit.carerpatient.ui.report
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.AlarmManager
+import android.app.Application
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.CountDownTimer
+import android.os.SystemClock
+import androidx.core.app.AlarmManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseUser
+import ie.wit.carerpatient.R
 import ie.wit.carerpatient.firebase.FirebaseDBManager
 import ie.wit.carerpatient.models.CarerPatientModel
+import ie.wit.carerpatient.utils.AlarmReceiver
+import ie.wit.carerpatient.utils.cancelNotifications
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
-class ReportViewModel : ViewModel() {
+class ReportViewModel  : ViewModel() {
+
 
     private val medicinesList = MutableLiveData<List<CarerPatientModel>>()
+
 
     var readOnly = MutableLiveData(false)
 
@@ -21,6 +38,7 @@ class ReportViewModel : ViewModel() {
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
     init {
+
         load()
     }
 
@@ -49,11 +67,11 @@ class ReportViewModel : ViewModel() {
     fun delete(userid: String, id: String) {
         try {
             //DonationManager.delete(userid,id)
-            FirebaseDBManager.delete(userid,id)
+            FirebaseDBManager.delete(userid, id)
             Timber.i("Report Delete Success")
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Timber.i("Report Delete Error : $e.message")
         }
     }
+
 }

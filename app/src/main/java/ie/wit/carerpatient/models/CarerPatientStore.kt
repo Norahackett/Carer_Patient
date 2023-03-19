@@ -24,4 +24,14 @@ interface CarerPatientStore {
     fun createAppointment(firebaseUser: MutableLiveData<FirebaseUser>, appointment: AppointmentModel)
     fun deleteAppointment(userid:String, appointmentid: String)
     fun updateAppointment(userid:String, appointmentid: String, appointment: AppointmentModel)
+    fun findAllReminder(remindersList:
+                MutableLiveData<List<ReminderModel>>)
+    fun findAllReminder(userid:String,
+                    remindersList:
+                MutableLiveData<List<ReminderModel>>)
+    fun findByIdReminder(userid:String, reminderid: String,
+                reminder: MutableLiveData<ReminderModel>)
+    fun createReminder(firebaseUser: MutableLiveData<FirebaseUser>, reminder: ReminderModel)
+    fun deleteReminder(userid:String, reminderid: String)
+    fun updateReminder(userid:String, reminderid: String, reminder: ReminderModel)
 }

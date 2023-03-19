@@ -52,7 +52,7 @@ class DetailFragment : Fragment() {
        fragBinding.editMedicineName.setText("Medicine Name")
         fragBinding.editFrequency.setText("Medicine Frequency")
         fragBinding.editTime.setText("Medicine Time")
-        fragBinding.editQuantity.setText("Medicine Quantity")
+        fragBinding.editAmount.setText("Medicine Amoount")
         fragBinding.medicinevm = detailViewModel
         Timber.i("Retrofit fragBinding.medicinevm == $fragBinding.medicinevm")
     }

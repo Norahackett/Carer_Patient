@@ -14,6 +14,8 @@ class MedicineViewModel : ViewModel() {
 
 
     private val status = MutableLiveData<Boolean>()
+    private val date = MutableLiveData<Long>()
+    private val time = MutableLiveData<Long>()
 
     val observableStatus: LiveData<Boolean>
         get() = status
@@ -30,4 +32,16 @@ class MedicineViewModel : ViewModel() {
             false
         }
     }
+
+    fun setDate(setDate:Long){
+        this.date.value = setDate
+    }
+
+    fun getDate():LiveData<Long> = date
+
+    fun setTime(setTime:Long) {
+        this.time.value = setTime
+    }
+
+    fun getTime():LiveData<Long> = time
 }

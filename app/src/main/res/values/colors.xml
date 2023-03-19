@@ -16,4 +16,13 @@
     <color name="grey_100">#2196F3</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+
+    <color name="colorPrimary">#07CBC2</color>
+    <color name="colorPrimaryDark">#08A19A</color>
+    <color name="darkGray">#343434</color>
+    <color name="lightGray">#9A9A9A</color>
+    <color name="gray">#707070</color>
+    <color name="yellow">#FFC107</color>
+    <color name="backgroundLightGray">#F7F7F7</color>
+    <color name="bg_cyan">#1100B5AD</color>
 </resources>

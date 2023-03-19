@@ -7,6 +7,10 @@
         <variable
             name="medicine"
             type="ie.wit.carerpatient.models.CarerPatientModel" />
+
+        <variable
+            name="reportViewModel"
+            type="ie.wit.carerpatient.ui.report.ReportViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -33,13 +37,13 @@
 
             <TextView
                 android:id="@+id/medicineName"
-                android:layout_width="87dp"
-                android:layout_height="wrap_content"
+                android:layout_width="114dp"
+                android:layout_height="56dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="9dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{medicine.medicinename}"
+                android:text="@{medicine.name}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="Medicine_name" />
@@ -47,28 +51,43 @@
 
             <TextView
                 android:id="@+id/quantity"
-                android:layout_width="88dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="39dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="11dp"
                 android:layout_toEndOf="@+id/medicineName"
-                android:text="@{Integer.toString(medicine.quantity)}"
+                android:text="@{Integer.toString(medicine.amount) }"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="@string/quantity" />
 
-            <ImageView
-                android:id="@+id/imagefavourite"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="82dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@id/quantity"
-                app:srcCompat="@android:drawable/star_big_off" />
+                android:layout_marginStart="266dp"
+                android:layout_marginTop="27dp"
+                android:layout_toEndOf="@+id/imageIcon"
+                android:text="@{medicine.type}"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                tools:text="Type" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="82dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="110dp"
+                android:layout_toEndOf="@+id/imageIcon"
+                android:text="@{@string/formatTime2(medicine.time)}"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                tools:text="02:09pm"/>
+
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

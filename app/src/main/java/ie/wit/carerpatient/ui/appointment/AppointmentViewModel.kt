@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.carerpatient.firebase.FirebaseDBManager
-import ie.wit.carerpatient.firebase.FirebaseImageManager
 import ie.wit.carerpatient.models.AppointmentModel
+import timber.log.Timber
 
 
 class AppointmentViewModel : ViewModel() {
@@ -22,8 +22,9 @@ class AppointmentViewModel : ViewModel() {
                     appointment: AppointmentModel) {
         status.value = try {
             //DonationManager.create(donation)
-            appointment.profilepic = FirebaseImageManager.imageUri.value.toString()
+           // appointment.profilepic = FirebaseImageManager.imageUri.value.toString()
             FirebaseDBManager.createAppointment(firebaseUser,appointment)
+            Timber.i ("sucessfully added appointment")
             true
         } catch (e: IllegalArgumentException) {
             false

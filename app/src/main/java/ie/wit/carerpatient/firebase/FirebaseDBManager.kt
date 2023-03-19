@@ -3,15 +3,13 @@ package ie.wit.carerpatient.firebase
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import ie.wit.carerpatient.models.AppointmentModel
-import ie.wit.carerpatient.models.CarerPatientModel
-
-import ie.wit.carerpatient.models.CarerPatientStore
+import ie.wit.carerpatient.models.*
 import timber.log.Timber
 
 object FirebaseDBManager : CarerPatientStore {
 
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
+
 
     override fun findAll(medicinesList: MutableLiveData<List<CarerPatientModel>>) {
         database.child("medicines")
@@ -35,27 +33,51 @@ object FirebaseDBManager : CarerPatientStore {
             })
     }
 
-    override fun findAllAppointment(appointmentsList: MutableLiveData<List<AppointmentModel>>) {
-        database.child("appointments")
+    override fun findAllReminder(remindersList: MutableLiveData<List<ReminderModel>>) {
+        database.child("reminders")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Appointment error : ${error.message}")
+                    Timber.i("Firebase Reminder error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<ReminderModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val reminder = it.getValue(ReminderModel::class.java)
+                        localList.add(reminder!!)
+                    }
+                    database.child("reminders")
+                        .removeEventListener(this)
+
+                    remindersList.value = localList
+                }
+            })
+    }
+
+    override fun findAllAppointment(appointmentsList: MutableLiveData<List<AppointmentModel>>) {
+        database.child("medicines")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase Appointments error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val localList = ArrayList<AppointmentModel>()
                     val children = snapshot.children
                     children.forEach {
-                        val appointment = it.getValue(AppointmentModel::class.java)
-                        localList.add(appointment!!)
+                        val medicine = it.getValue(AppointmentModel::class.java)
+                        localList.add(medicine!!)
                     }
-                    database.child("appointments")
+                    database.child("medicines")
                         .removeEventListener(this)
 
                     appointmentsList.value = localList
                 }
             })
     }
+
+
 
 
     override fun findAll(userid: String, medicinesList: MutableLiveData<List<CarerPatientModel>>) {
@@ -81,10 +103,29 @@ object FirebaseDBManager : CarerPatientStore {
             })
     }
 
-    override fun findAllAppointment(
-        userid: String,
-        appointmentList: MutableLiveData<List<AppointmentModel>>
-    ) {
+    override fun findAllReminder(userid: String, remindersList: MutableLiveData<List<ReminderModel>>) {
+
+        database.child("user-reminders").child(userid)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase reminder error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<ReminderModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val reminder = it.getValue(ReminderModel::class.java)
+                        localList.add(reminder!!)
+                    }
+                    database.child("user-reminders").child(userid)
+                        .removeEventListener(this)
+
+                    remindersList.value = localList
+                }
+            })
+    }
+    override fun findAllAppointment(userid: String, appointmentsList: MutableLiveData<List<AppointmentModel>>) {
 
         database.child("user-appointments").child(userid)
             .addValueEventListener(object : ValueEventListener {
@@ -102,7 +143,7 @@ object FirebaseDBManager : CarerPatientStore {
                     database.child("user-appointments").child(userid)
                         .removeEventListener(this)
 
-                    appointmentList.value = localList
+                    appointmentsList.value = localList
                 }
             })
     }
@@ -116,6 +157,21 @@ object FirebaseDBManager : CarerPatientStore {
         database.child("user-medicines").child(userid)
             .child(medicineid).get().addOnSuccessListener {
                 medicine.value = it.getValue(CarerPatientModel::class.java)
+                Timber.i("firebase Got value ${it.value}")
+            }.addOnFailureListener {
+                Timber.e("firebase Error getting data $it")
+            }
+    }
+
+    override fun findByIdReminder(
+        userid: String,
+        reminderid: String,
+        reminder: MutableLiveData<ReminderModel>
+    ) {
+
+        database.child("user-reminders").child(userid)
+            .child(reminderid).get().addOnSuccessListener {
+                reminder.value = it.getValue(ReminderModel::class.java)
                 Timber.i("firebase Got value ${it.value}")
             }.addOnFailureListener {
                 Timber.e("firebase Error getting data $it")
@@ -150,8 +206,27 @@ object FirebaseDBManager : CarerPatientStore {
         val medicineValues = medicine.toMap()
 
         val childAdd = HashMap<String, Any>()
-        childAdd["/medicines/$key"] = medicineValues
+       childAdd["/medicines/$key"] = medicineValues
         childAdd["/user-medicines/$uid/$key"] = medicineValues
+
+        database.updateChildren(childAdd)
+    }
+
+    override fun createReminder(firebaseUser: MutableLiveData<FirebaseUser>, reminder: ReminderModel) {
+        Timber.i("Firebase DB Reference : $database")
+
+        val uid = firebaseUser.value!!.uid
+        val key = database.child("reminders").push().key
+        if (key == null) {
+            Timber.i("Firebase Error : Key Empty")
+            return
+        }
+        reminder.uid = key
+        val reminderValues = reminder.toMap()
+
+        val childAdd = HashMap<String, Any>()
+        childAdd["/reminders/$key"] = reminderValues
+        childAdd["/user-reminders/$uid/$key"] = reminderValues
 
         database.updateChildren(childAdd)
     }
@@ -163,7 +238,7 @@ object FirebaseDBManager : CarerPatientStore {
         Timber.i("Firebase DB Reference : $database")
 
         val uid = firebaseUser.value!!.uid
-        val key = database.child("appointments").push().key
+        val key = database.child("medicines").push().key
         if (key == null) {
             Timber.i("Firebase Error : Key Empty")
             return
@@ -187,8 +262,16 @@ object FirebaseDBManager : CarerPatientStore {
         database.updateChildren(childDelete)
     }
 
-    override fun deleteAppointment(userid: String, appointmentid: String) {
+    override fun deleteReminder(userid: String, reminderid: String) {
 
+        val childDelete: MutableMap<String, Any?> = HashMap()
+        childDelete["/reminders/$reminderid"] = null
+        childDelete["/user-reminders/$userid/$reminderid"] = null
+
+        database.updateChildren(childDelete)
+    }
+
+    override fun deleteAppointment(userid: String, appointmentid: String) {
         val childDelete: MutableMap<String, Any?> = HashMap()
         childDelete["/appointments/$appointmentid"] = null
         childDelete["/user-appointments/$userid/$appointmentid"] = null
@@ -207,6 +290,16 @@ object FirebaseDBManager : CarerPatientStore {
         database.updateChildren(childUpdate)
     }
 
+    override fun updateReminder(userid: String, reminderid: String, reminder: ReminderModel) {
+
+        val reminderValues = reminder.toMap()
+
+        val childUpdate: MutableMap<String, Any?> = HashMap()
+        childUpdate["reminders/$reminderid"] = reminderValues
+        childUpdate["user-reminders/$userid/$reminderid"] = reminderValues
+
+        database.updateChildren(childUpdate)
+    }
     override fun updateAppointment(
         userid: String,
         appointmentid: String,
@@ -242,10 +335,10 @@ object FirebaseDBManager : CarerPatientStore {
                 }
             })
 
-        fun updateImageRefAppointment(userid: String, imageUri: String) {
+       fun updateImageRefAppointment(userid: String, imageUri: String) {
 
-            val userAppointments = database.child("user-appointment").child(userid)
-            val allAppointments = database.child("appointments")
+           val userAppointments = database.child("user-appointments").child(userid)
+           val allAppointments = database.child("appointments")
 
             userAppointments.addListenerForSingleValueEvent(
                 object : ValueEventListener {

@@ -22,7 +22,6 @@ import ie.wit.carerpatient.adapters.AppointmentAdaptor
 import ie.wit.carerpatient.adapters.AppointmentClickListener
 import ie.wit.carerpatient.databinding.FragmentAppointmentlistBinding
 import ie.wit.carerpatient.models.AppointmentModel
-
 import ie.wit.carerpatient.ui.auth.LoggedInViewModel
 import ie.wit.carerpatient.utils.*
 
@@ -58,14 +57,14 @@ class AppointmentListFragment : Fragment(), AppointmentClickListener {
                 appointments ->
             appointments?.let {
                 render(appointments as ArrayList<AppointmentModel>)
-                hideLoader(loader)
+                hideLoaderApp(loader)
                 checkSwipeRefresh()
             }
         })
 
         setSwipeRefresh()
 
-        val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
+        val swipeDeleteHandler = object : AppointmentSwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 showLoader(loader,"Deleting Appointments")
                 val adapter = fragBinding.recyclerView.adapter as AppointmentAdaptor
@@ -73,13 +72,13 @@ class AppointmentListFragment : Fragment(), AppointmentClickListener {
                 appointmentlistViewModel.deleteAppointment(appointmentlistViewModel.liveFirebaseUser.value?.uid!!,
                     (viewHolder.itemView.tag as AppointmentModel).uid!!)
 
-                hideLoader(loader)
+                hideLoaderApp(loader)
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
         itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
 
-        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+        val swipeEditHandler = object : AppointmentSwipeToEditCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 onAppointmentClick(viewHolder.itemView.tag as AppointmentModel)
             }
@@ -142,7 +141,7 @@ class AppointmentListFragment : Fragment(), AppointmentClickListener {
     private fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
-            showLoader(loader,"Downloading Appointments")
+            showLoaderApp(loader,"Downloading Appointments")
             if(appointmentlistViewModel.readOnly.value!!)
                 appointmentlistViewModel.loadAll()
             else
@@ -157,7 +156,7 @@ class AppointmentListFragment : Fragment(), AppointmentClickListener {
 
     override fun onResume() {
         super.onResume()
-        showLoader(loader,"Downloading Appointments")
+        showLoaderApp(loader,"Downloading Appointments")
         loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
             if (firebaseUser != null) {
                 appointmentlistViewModel.liveFirebaseUser.value = firebaseUser

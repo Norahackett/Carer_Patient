@@ -37,7 +37,7 @@ class AppointmentAdaptor constructor(private var appointments: ArrayList<Appoint
 
     override fun getItemCount(): Int = appointments.size
 
-    inner class MainHolder(val binding : CardAppointmentBinding, private val readOnly : Boolean) :
+    inner class MainHolder(private val binding : CardAppointmentBinding, private val readOnly : Boolean) :
         RecyclerView.ViewHolder(binding.root) {
 
         val readOnlyRow = readOnly
@@ -45,11 +45,6 @@ class AppointmentAdaptor constructor(private var appointments: ArrayList<Appoint
         fun bind(appointment: AppointmentModel, listener: AppointmentClickListener) {
             binding.root.tag = appointment
             binding.appointment = appointment
-            Picasso.get().load(appointment.profilepic.toUri())
-                .resize(200, 200)
-                .transform(customTransformation())
-                .centerCrop()
-                .into(binding.imageIcon)
 
             binding.root.setOnClickListener { listener.onAppointmentClick(appointment) }
             binding.executePendingBindings()

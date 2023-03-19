@@ -50,7 +50,7 @@ class AppointmentDetailFragment : Fragment() {
     }
 
     private fun render() {
-        fragBinding.editMedicineName.setText("Medicine Name")
+        fragBinding.editAppointmentName.setText(" Name")
         fragBinding.editFrequency.setText("Medicine Frequency")
         fragBinding.editTime.setText("Medicine Time")
         fragBinding.editQuantity.setText("Medicine Quantity")

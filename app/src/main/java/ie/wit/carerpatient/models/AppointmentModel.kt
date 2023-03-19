@@ -12,14 +12,13 @@ import kotlinx.parcelize.Parcelize
 data class AppointmentModel(
     var uid: String? = "",
     var frequency: String = "",
-    var appointmentname:  String = "",
-    //var amount: Int = 0,
+    var name:  String = "",
     var quantity: Int = 0,
     var time2: String = "",
-    var profilepic: String = "",
-    var firstname:String = "",
-    var lastname: String = "",
-    var email: String? = "joe@bloggs.com")
+   // var firstname:String = "",
+    //var lastname: String = ""
+)
+    //var email: String? = "joe@bloggs.com")
     : Parcelable
 {
     @Exclude
@@ -27,13 +26,13 @@ data class AppointmentModel(
         return mapOf(
             "uid" to uid,
             "frequency" to frequency,
-            "appointmentname" to appointmentname,
+            "name" to name,
             "quantity" to quantity,
             "time2" to time2,
-            "profilepic" to profilepic,
-            "email" to email,
-            "firstname" to firstname,
-            "lastname" to lastname
+
+           // "email" to email,
+           // "firstname" to firstname,
+            //lastname" to lastname
             //"amount" to amount
 
         )

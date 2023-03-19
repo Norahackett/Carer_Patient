@@ -11,11 +11,13 @@ import ie.wit.carerpatient.utils.customTransformation
 
 interface CarerPatientClickListener {
     fun onCarerPatientClick(medicine: CarerPatientModel)
+
 }
 
 class CarerPatientAdapter constructor(private var medicines: ArrayList<CarerPatientModel>,
+
                                   private val listener: CarerPatientClickListener ,
-                                  private val readOnly: Boolean)
+                                      private val readOnly: Boolean)
     : RecyclerView.Adapter<CarerPatientAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {

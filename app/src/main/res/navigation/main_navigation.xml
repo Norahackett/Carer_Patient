@@ -18,6 +18,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/reminderFragment"
+        android:name="ie.wit.carerpatient.ui.reminder.ReminderFragment"
+        android:label="@string/action_reminder"
+        tools:layout="@layout/fragment_reminder" >
+        <action
+            android:id="@+id/action_reminderFragment_to_reminderreportFragment"
+            app:destination="@id/reminderreportFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
         android:id="@+id/appointmentFragment"
         android:name="ie.wit.carerpatient.ui.appointment.AppointmentFragment"
         android:label="@string/action_appointment"
@@ -59,6 +71,23 @@
         <action
             android:id="@+id/action_reportFragment_to_DetailFragment"
             app:destination="@id/DetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reminderreportFragment"
+        android:name="ie.wit.carerpatient.ui.reminderreport.ReminderreportFragment"
+        android:label="@string/action_reminder"
+        tools:layout="@layout/fragment_reminderreport" >
+        <action
+            android:id="@+id/action_reminderreportFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_reminderreportFragment_to_ReminderdetailFragment"
+            app:destination="@id/ReminderdetailFragment" />
     </fragment>
 
     <fragment
@@ -111,6 +140,24 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/ReminderdetailFragment"
+        android:name="ie.wit.carerpatient.ui.reminderdetail.ReminderdetailFragment"
+        android:label="Reminder Details"
+        tools:layout="@layout/fragment_reminderdetail" >
+        <action
+            android:id="@+id/action_ReminderdetailFragment_to_reminderreportFragment"
+            app:destination="@id/reminderreportFragment" />
+        <argument
+            android:name="reminderid"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eggtimerFragment"
+        android:name="ie.wit.carerpatient.ui.notification.EggTimerFragment"
+        android:label="@string/action_eggtimer"
+        tools:layout="@layout/fragment_egg_timer" />
 
 </navigation>
 

@@ -44,7 +44,19 @@ fun showLoader(loader: AlertDialog, message: String) {
     }
 }
 
+fun showLoaderApp(loader: AlertDialog, message: String) {
+    if (!loader.isShowing) {
+        loader.setTitle(message)
+        loader.show()
+    }
+}
+
 fun hideLoader(loader: AlertDialog) {
+    if (loader.isShowing)
+        loader.dismiss()
+}
+
+fun hideLoaderApp(loader: AlertDialog) {
     if (loader.isShowing)
         loader.dismiss()
 }

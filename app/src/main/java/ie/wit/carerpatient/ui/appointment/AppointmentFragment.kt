@@ -68,7 +68,7 @@ class AppointmentFragment : Fragment() {
         layout.appointmentButton.setOnClickListener {
             //val appointmentname = layout.appointmentName.text.toString()
             val quantity=  layout.quantity.text.toString().toInt()
-            val appointmentname= layout.name.text.toString()
+            val name= layout.name.text.toString()
             val frequency= layout.frequency.text.toString()
             val time2= layout.time.text.toString()
 
@@ -76,8 +76,8 @@ class AppointmentFragment : Fragment() {
             appointmentViewModel.addAppointment(
                 loggedInViewModel.liveFirebaseUser,
 
-                AppointmentModel( quantity = quantity,appointmentname = appointmentname, frequency = frequency, time2 = time2,
-                    email = loggedInViewModel.liveFirebaseUser.value?.email!!
+                AppointmentModel( quantity = quantity,name = name, frequency = frequency, time2 = time2,
+                    //email = loggedInViewModel.liveFirebaseUser.value?.email!!
                 )
             )
         }
@@ -116,6 +116,5 @@ class AppointmentFragment : Fragment() {
         super.onResume()
 
     }
-
 
 }

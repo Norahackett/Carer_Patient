@@ -51,6 +51,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-rc01'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -59,6 +60,7 @@ dependencies {
     implementation 'com.github.ajalt:timberkt:1.5.1'
     implementation 'androidx.activity:activity-ktx:1.6.1'
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
+    implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -67,8 +69,18 @@ dependencies {
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.3'
+    implementation 'com.android.support:support-compat:'
+
+    implementation 'androidx.test:core-ktx:1.4.0'
+    implementation 'com.google.firebase:firebase-messaging-directboot:20.2.0'
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-iid:19.0.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation 'android.arch.work:work-runtime:1.0.1'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
 }

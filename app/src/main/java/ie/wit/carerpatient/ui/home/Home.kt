@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.carerpatient.R
@@ -51,12 +50,14 @@ class Home : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.medicineFragment, R.id.reportFragment, R.id.aboutFragment, R.id.profileFragment,R.id.appointmentFragment, R.id.appointmentlistFragment), drawerLayout)
+            R.id.medicineFragment, R.id.reportFragment, R.id.aboutFragment, R.id.profileFragment,R.id.appointmentFragment, R.id.appointmentlistFragment, R.id.eggtimerFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
         initNavHeader()
+
+
 //        navController.addOnDestinationChangedListener { _, destination, arguments ->
 //            when(destination.id) {
 //                R.id.reportFragment -> {

@@ -1,13 +1,18 @@
 package ie.wit.carerpatient.ui.medicine
 
+import android.app.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.util.Log
 import android.view.*
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -17,9 +22,14 @@ import ie.wit.carerpatient.databinding.FragmentMedicineBinding
 import ie.wit.carerpatient.models.CarerPatientModel
 import ie.wit.carerpatient.ui.auth.LoggedInViewModel
 import ie.wit.carerpatient.ui.report.ReportViewModel
+import ie.wit.carerpatient.utils.AlarmReceiver
+import ie.wit.carerpatient.utils.DatePickerHelper
+import ie.wit.carerpatient.utils.TimePickerHelper
+import java.util.*
 
 
 class MedicineFragment : Fragment() {
+
 
     private var _fragBinding: FragmentMedicineBinding? = null
     private lateinit var medicineViewModel: MedicineViewModel
@@ -29,9 +39,14 @@ class MedicineFragment : Fragment() {
     private val loggedInViewModel: LoggedInViewModel by activityViewModels()
     var medicine = CarerPatientModel()
 
+    private lateinit var alarmManager: AlarmManager
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     }
 
@@ -43,14 +58,19 @@ class MedicineFragment : Fragment() {
         val root: View = fragBinding.root
         setupMenu()
         medicineViewModel = ViewModelProvider(this).get(MedicineViewModel::class.java)
-        medicineViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
-                status -> status?.let { render(status) }
+        medicineViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let { render(status) }
+
         })
 
-    setButtonListener(fragBinding)
+        alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        setButtonListener(fragBinding)
+        setupMedicineType()
+        setupDateAndTimePicker()
+        onSeekbarChanged()
 
-    return root;
-}
+        return root;
+    }
 
     private fun render(status: Boolean) {
         when (status) {
@@ -60,51 +80,160 @@ class MedicineFragment : Fragment() {
                     //findNavController().popBackStack()
                 }
             }
-            false -> Toast.makeText(context,getString(R.string.medicineError),Toast.LENGTH_LONG).show()
+            false -> Toast.makeText(context, getString(R.string.medicineError), Toast.LENGTH_LONG)
+                .show()
         }
     }
 
 
     fun setButtonListener(layout: FragmentMedicineBinding) {
-        layout.medicineButton.setOnClickListener {
+
+
+        //val time = getTime(hour, minute)
+        layout.saveMedicineButton.setOnClickListener {
+            //sendNotification()
             //val medicinename = layout.medicineName.text.toString()
-            val quantity=  layout.quantity.text.toString().toInt()
-            val medicinename= layout.name.text.toString()
-            val frequency= layout.frequency.text.toString()
-            val time2= layout.time.text.toString()
-            //medicine.quantity =layout.quantity.text.toString().toInt()
-           // medicine.time2=layout.time.text.toString()
-            //if (medicine.medicinename.isEmpty()) {
-              //  Snackbar.make(it, R.string.medicineName, Snackbar.LENGTH_LONG)
-                //    .show()
 
 
-            //  medicine.medicinename = layout.medicinename.text.toString().trim()
-            //medicine.quantity = layout.quantity.text.toString().toInt()
-            //medicine.frequency = layout.frequency.text.toString().toInt()
-            //  medicine.name = layout.name.text.toString().trim()
-            // val amount = if (layout.quantity.text.isNotEmpty())
-            //        layout.quantity.text.toString().toInt() else layout.amountPicker.value
-            // if(totalMedicine >= layout.progressBar.max)
-            //       Toast.makeText(context,"Medicine Amount Exceeded!", Toast.LENGTH_LONG).show()
-            // else {
-            // val quantity = if(layout.quantity2.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
-            // totalMedicine += amount
-            // layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalMedicine)
-            //layout.progressBar.progress = totalMedicine
+
+            val medicinename =
+                if (layout.medicineNameInput.text.isNullOrEmpty()) "Medicine" else layout.medicineNameInput.text.toString()
+            val amount = layout.amountInputField.text.toString().toInt()
+            //fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
+            val amount2 = amount.toString()
+            val type = medicine.type
+            val duration = medicine.duration
+            val time = medicine.time
+            //val time = medicine.time
+
+            val intent = Intent(requireActivity().applicationContext, AlarmReceiver::class.java)
+            //send medicine info to the alarm manager
+           intent.apply {
+                putExtra("medicineName",medicinename)
+                putExtra("medicineAmount",amount2)
+                putExtra("medicineType",medicine.type)
+
+            }
+            val alarmIntent = intent.let {
+
+
+               PendingIntent.getBroadcast(requireActivity().applicationContext,medicine.time.toInt(),it,PendingIntent.FLAG_IMMUTABLE )
+
+            }
+            Log.d("OBIEKT",medicine.time.toString())
+            alarmManager.set(AlarmManager.RTC_WAKEUP,medicine.time,alarmIntent)
 
             medicineViewModel.addMedicine(
                 loggedInViewModel.liveFirebaseUser,
 
-                CarerPatientModel( quantity = quantity,medicinename = medicinename, frequency = frequency, time2 = time2,
+                CarerPatientModel(
+                    amount = amount,
+                    name = medicinename,
+                    type = type,
+                    duration = duration,
+                    time = time,
                     email = loggedInViewModel.liveFirebaseUser.value?.email!!
                 )
             )
         }
 
         // findNavController().popBackStack()
+
+
     }
 
+    private fun setupMedicineType() {
+        fragBinding.medicineTypeChooser.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                arrayListOf("pills", "ml", "mg")
+            )
+        )
+        fragBinding.medicineTypeChooser.inputType = 0
+        fragBinding.medicineTypeChooser.keyListener = null
+        fragBinding.medicineTypeChooser.setOnClickListener {
+            fragBinding.medicineTypeChooser.showDropDown()
+        }
+
+        //set type of medicine object
+        fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
+            medicine.type = fragBinding.medicineTypeChooser.adapter.getItem(i).toString()
+        }
+
+
+    }
+
+
+    private fun onSeekbarChanged() {
+        fragBinding.durationSeekbar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                fragBinding.durationText.text =
+                    resources.getQuantityString(R.plurals.numberOfSongsAvailable, p1 + 1, p1 + 1)
+                medicine.duration = p1 + 1
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
+        })
+    }
+
+    private fun setupDateAndTimePicker() {
+
+        //show time picker
+        (arrayListOf<View>(fragBinding.chooseTimeButton, fragBinding.timeTextInput)).forEach {
+            it.setOnClickListener {
+                val timePickerDialog: TimePickerHelper = TimePickerHelper()
+                timePickerDialog.show(requireActivity().supportFragmentManager, "time_picker")
+            }
+        }
+
+        //show date picker
+        (arrayListOf<View>(fragBinding.chooseDateButton, fragBinding.dateTextInput)).forEach {
+            it.setOnClickListener {
+                val datePickerDialog: DatePickerHelper = DatePickerHelper()
+                datePickerDialog.show(requireActivity().supportFragmentManager, "date_picker")
+            }
+        }
+
+        val dateTimePickerViewModel: MedicineViewModel =
+            ViewModelProvider(requireActivity()).get(MedicineViewModel::class.java)
+        val c = Calendar.getInstance()
+        //------set actual time in textviews-------
+        dateTimePickerViewModel.setDate(c.timeInMillis)
+        dateTimePickerViewModel.setTime(c.timeInMillis)
+        //=========================================
+
+
+        dateTimePickerViewModel.getTime().observe(viewLifecycleOwner, Observer { time ->
+            val helper = Calendar.getInstance()
+            helper.timeInMillis = time
+
+            //set madicine time
+            c.set(Calendar.HOUR, helper.get(Calendar.HOUR))
+            c.set(Calendar.MINUTE, helper.get(Calendar.MINUTE))
+            c.set(Calendar.SECOND, helper.get(Calendar.SECOND))
+
+            medicine.time = c.timeInMillis
+            fragBinding.timeTextInput.text = DateFormat.format("HH:mm", helper).toString()
+        })
+
+
+        dateTimePickerViewModel.getDate().observe(viewLifecycleOwner, Observer { date ->
+            val helper = Calendar.getInstance()
+            helper.timeInMillis = date
+
+            //set madicine date
+            c.set(Calendar.YEAR, helper.get(Calendar.YEAR))
+            c.set(Calendar.MONTH, helper.get(Calendar.MONTH))
+            c.set(Calendar.DAY_OF_MONTH, helper.get(Calendar.DAY_OF_MONTH))
+
+            medicine.time = c.timeInMillis
+            fragBinding.dateTextInput.text = DateFormat.format("dd MMMM yyyy", helper).toString()
+        })
+
+    }
 
     private fun setupMenu() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
@@ -135,8 +264,11 @@ class MedicineFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-            }
-
-
+    }
 }
+
+
+
+
+
 
