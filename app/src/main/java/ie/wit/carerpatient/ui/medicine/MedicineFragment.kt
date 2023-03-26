@@ -3,7 +3,9 @@ package ie.wit.carerpatient.ui.medicine
 import android.app.*
 import android.content.Context
 import android.content.Intent
+
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.*
@@ -91,55 +93,60 @@ class MedicineFragment : Fragment() {
 
         //val time = getTime(hour, minute)
         layout.saveMedicineButton.setOnClickListener {
-            //sendNotification()
-            //val medicinename = layout.medicineName.text.toString()
+            if (validateForm()) {
+                //sendNotification()
+                //val medicinename = layout.medicineName.text.toString()
 
 
+                val medicinename =
+                    if (layout.medicineNameInput.text.isNullOrEmpty()) "Medicine" else layout.medicineNameInput.text.toString()
+                val amount = layout.amountInputField.text.toString().toInt()
+                //fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
+                val amount2 = amount.toString()
+                val type = medicine.type
+                val duration = medicine.duration
+                val time = medicine.time
+                //val time = medicine.time
 
-            val medicinename =
-                if (layout.medicineNameInput.text.isNullOrEmpty()) "Medicine" else layout.medicineNameInput.text.toString()
-            val amount = layout.amountInputField.text.toString().toInt()
-            //fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
-            val amount2 = amount.toString()
-            val type = medicine.type
-            val duration = medicine.duration
-            val time = medicine.time
-            //val time = medicine.time
+                val intent = Intent(requireActivity().applicationContext, AlarmReceiver::class.java)
+                //send medicine info to the alarm manager
+                intent.apply {
+                    putExtra("medicineName", medicinename)
+                    putExtra("medicineAmount", amount2)
+                    putExtra("medicineType", medicine.type)
 
-            val intent = Intent(requireActivity().applicationContext, AlarmReceiver::class.java)
-            //send medicine info to the alarm manager
-           intent.apply {
-                putExtra("medicineName",medicinename)
-                putExtra("medicineAmount",amount2)
-                putExtra("medicineType",medicine.type)
-
-            }
-            val alarmIntent = intent.let {
+                }
+                val alarmIntent = intent.let {
 
 
-               PendingIntent.getBroadcast(requireActivity().applicationContext,medicine.time.toInt(),it,PendingIntent.FLAG_IMMUTABLE )
+                    PendingIntent.getBroadcast(
+                        requireActivity().applicationContext,
+                        medicine.time.toInt(),
+                        it,
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
 
-            }
-            Log.d("OBIEKT",medicine.time.toString())
-            alarmManager.set(AlarmManager.RTC_WAKEUP,medicine.time,alarmIntent)
+                }
+                Log.d("OBIEKT", medicine.time.toString())
+                alarmManager.set(AlarmManager.RTC_WAKEUP, medicine.time, alarmIntent)
 
-            medicineViewModel.addMedicine(
-                loggedInViewModel.liveFirebaseUser,
+                medicineViewModel.addMedicine(
+                    loggedInViewModel.liveFirebaseUser,
 
-                CarerPatientModel(
-                    amount = amount,
-                    name = medicinename,
-                    type = type,
-                    duration = duration,
-                    time = time,
-                    email = loggedInViewModel.liveFirebaseUser.value?.email!!
+                    CarerPatientModel(
+                        amount = amount,
+                        name = medicinename,
+                        type = type,
+                        duration = duration,
+                        time = time,
+                        email = loggedInViewModel.liveFirebaseUser.value?.email!!
+                    )
                 )
-            )
+            }
+
+            // findNavController().popBackStack()
+
         }
-
-        // findNavController().popBackStack()
-
-
     }
 
     private fun setupMedicineType() {
@@ -265,6 +272,21 @@ class MedicineFragment : Fragment() {
         super.onResume()
 
     }
+
+
+    private fun validateForm(): Boolean {
+
+        var valid = true
+        if (fragBinding.medicineNameInput.text!!.isEmpty()){
+            fragBinding.medicineNameInput.requestFocus()
+            fragBinding.medicineNameInput.error = "Required."
+            valid = false
+        }
+
+
+        return valid
+    }
+
 }
 
 

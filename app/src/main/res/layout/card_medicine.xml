@@ -57,7 +57,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="11dp"
                 android:layout_toEndOf="@+id/medicineName"
-                android:text="@{Integer.toString(medicine.amount) }"
+                android:text="@{(Integer.toString(medicine.amount) + medicine.type) }"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="@string/quantity" />

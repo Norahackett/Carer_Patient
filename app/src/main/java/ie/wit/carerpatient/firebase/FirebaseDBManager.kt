@@ -33,49 +33,28 @@ object FirebaseDBManager : CarerPatientStore {
             })
     }
 
-    override fun findAllReminder(remindersList: MutableLiveData<List<ReminderModel>>) {
-        database.child("reminders")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Reminder error : ${error.message}")
-                }
+    //override fun findAllUser(usersList: MutableLiveData<List<UserModel>>) {
+      //  database.child("users")
+       //     .addValueEventListener(object : ValueEventListener {
+        //        override fun onCancelled(error: DatabaseError) {
+          //          Timber.i("Firebase Users error : ${error.message}")
+          //      }
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<ReminderModel>()
-                    val children = snapshot.children
-                    children.forEach {
-                        val reminder = it.getValue(ReminderModel::class.java)
-                        localList.add(reminder!!)
-                    }
-                    database.child("reminders")
-                        .removeEventListener(this)
+            //    override fun onDataChange(snapshot: DataSnapshot) {
+            //        val localList = ArrayList<UserModel>()
+             //       val children = snapshot.children
+                //    children.forEach {
+               //         val user = it.getValue(UserModel::class.java)
+                //        localList.add(user!!)
+                //    }
+                  //  database.child("medicines")
+                  //      .removeEventListener(this)
 
-                    remindersList.value = localList
-                }
-            })
-    }
+                  //  usersList.value = localList
+                //}
+            //})
+   // }
 
-    override fun findAllAppointment(appointmentsList: MutableLiveData<List<AppointmentModel>>) {
-        database.child("medicines")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Appointments error : ${error.message}")
-                }
-
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<AppointmentModel>()
-                    val children = snapshot.children
-                    children.forEach {
-                        val medicine = it.getValue(AppointmentModel::class.java)
-                        localList.add(medicine!!)
-                    }
-                    database.child("medicines")
-                        .removeEventListener(this)
-
-                    appointmentsList.value = localList
-                }
-            })
-    }
 
 
 
@@ -103,50 +82,31 @@ object FirebaseDBManager : CarerPatientStore {
             })
     }
 
-    override fun findAllReminder(userid: String, remindersList: MutableLiveData<List<ReminderModel>>) {
 
-        database.child("user-reminders").child(userid)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase reminder error : ${error.message}")
-                }
+   // override fun findAllUser(userid: String, usersList: MutableLiveData<List<UserModel>>) {
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<ReminderModel>()
-                    val children = snapshot.children
-                    children.forEach {
-                        val reminder = it.getValue(ReminderModel::class.java)
-                        localList.add(reminder!!)
-                    }
-                    database.child("user-reminders").child(userid)
-                        .removeEventListener(this)
+    //    database.child("user-users").child(userid)
+    //        .addValueEventListener(object : ValueEventListener {
+      //          override fun onCancelled(error: DatabaseError) {
+      ///              Timber.i("Firebase user error : ${error.message}")
+       //         }
 
-                    remindersList.value = localList
-                }
-            })
-    }
-    override fun findAllAppointment(userid: String, appointmentsList: MutableLiveData<List<AppointmentModel>>) {
+          //      override fun onDataChange(snapshot: DataSnapshot) {
+           //         val localList = ArrayList<UserModel>()
+           //         val children = snapshot.children
+             //       children.forEach {
+              //          val user= it.getValue(UserModel::class.java)
+              //          localList.add(user!!)
+               //     }
+                //    database.child("user-users").child(userid)
+                 //       .removeEventListener(this)
 
-        database.child("user-appointments").child(userid)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase appointment error : ${error.message}")
-                }
+                  //  usersList.value = localList
+               // }
+           // })
+    //}
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<AppointmentModel>()
-                    val children = snapshot.children
-                    children.forEach {
-                        val appointment = it.getValue(AppointmentModel::class.java)
-                        localList.add(appointment!!)
-                    }
-                    database.child("user-appointments").child(userid)
-                        .removeEventListener(this)
 
-                    appointmentsList.value = localList
-                }
-            })
-    }
 
     override fun findById(
         userid: String,
@@ -163,35 +123,24 @@ object FirebaseDBManager : CarerPatientStore {
             }
     }
 
-    override fun findByIdReminder(
-        userid: String,
-        reminderid: String,
-        reminder: MutableLiveData<ReminderModel>
-    ) {
+  //  override fun findByIdProfile(
+//       userid: String,
+   //   // profileid:String,
+  //      user: MutableLiveData<UserModel>
+  //  ) {
 
-        database.child("user-reminders").child(userid)
-            .child(reminderid).get().addOnSuccessListener {
-                reminder.value = it.getValue(ReminderModel::class.java)
-                Timber.i("firebase Got value ${it.value}")
-            }.addOnFailureListener {
-                Timber.e("firebase Error getting data $it")
-            }
-    }
+    //    database.child("user-users").child(userid)
+    //        .child(userid).get().addOnSuccessListener {
+      //          user.value = it.getValue(UserModel::class.java)
+      //          Timber.i("firebase Got value ${it.value}")
+      //      }.addOnFailureListener {
+       //         Timber.e("firebase Error getting data $it")
+       //     }
+    //}
 
-    override fun findByIdAppointment(
-        userid: String,
-        appointmentid: String,
-        appointment: MutableLiveData<AppointmentModel>
-    ) {
 
-        database.child("user-appointments").child(userid)
-            .child(appointmentid).get().addOnSuccessListener {
-                appointment.value = it.getValue(AppointmentModel::class.java)
-                Timber.i("firebase Got value ${it.value}")
-            }.addOnFailureListener {
-                Timber.e("firebase Error getting data $it")
-            }
-    }
+
+
 
     override fun create(firebaseUser: MutableLiveData<FirebaseUser>, medicine: CarerPatientModel) {
         Timber.i("Firebase DB Reference : $database")
@@ -206,52 +155,52 @@ object FirebaseDBManager : CarerPatientStore {
         val medicineValues = medicine.toMap()
 
         val childAdd = HashMap<String, Any>()
-       childAdd["/medicines/$key"] = medicineValues
+        childAdd["/medicines/$key"] = medicineValues
         childAdd["/user-medicines/$uid/$key"] = medicineValues
 
         database.updateChildren(childAdd)
     }
 
-    override fun createReminder(firebaseUser: MutableLiveData<FirebaseUser>, reminder: ReminderModel) {
+    override fun createUser(firebaseUser: MutableLiveData<FirebaseUser>, user: User) {
         Timber.i("Firebase DB Reference : $database")
 
         val uid = firebaseUser.value!!.uid
-        val key = database.child("reminders").push().key
+        val key = database.child("user").push().key
         if (key == null) {
             Timber.i("Firebase Error : Key Empty")
             return
         }
-        reminder.uid = key
-        val reminderValues = reminder.toMap()
+        user.uid = key
+        val userValues = user.toMap()
 
         val childAdd = HashMap<String, Any>()
-        childAdd["/reminders/$key"] = reminderValues
-        childAdd["/user-reminders/$uid/$key"] = reminderValues
+        childAdd["/user/$key"] = userValues
+        childAdd["/user-user/$uid/$key"] = userValues
 
         database.updateChildren(childAdd)
     }
 
-    override fun createAppointment(
-        firebaseUser: MutableLiveData<FirebaseUser>,
-        appointment: AppointmentModel
-    ) {
-        Timber.i("Firebase DB Reference : $database")
+   // override fun createUser(firebaseUser: MutableLiveData<FirebaseUser>, user: UserModel) {
+      //  Timber.i("Firebase DB Reference : $database")
 
-        val uid = firebaseUser.value!!.uid
-        val key = database.child("medicines").push().key
-        if (key == null) {
-            Timber.i("Firebase Error : Key Empty")
-            return
-        }
-        appointment.uid = key
-        val appointmentValues = appointment.toMap()
+     //   val uid = firebaseUser.value!!.uid
+      //  val key = database.child("users").push().key
+      //  if (key == null) {
+       //     Timber.i("Firebase Error : Key Empty")
+       //     return
+       // }
+        //user.uid = key
+        //val userValues = user.toMap()
 
-        val childAdd = HashMap<String, Any>()
-        childAdd["/appointments/$key"] = appointmentValues
-        childAdd["/user-appointments/$uid/$key"] = appointmentValues
+       // val childAdd = HashMap<String, Any>()
+       // childAdd["/users/$key"] = userValues
+       // childAdd["/user-users/$uid/$key"] = userValues
 
-        database.updateChildren(childAdd)
-    }
+       // database.updateChildren(childAdd)
+    //}
+
+
+
 
     override fun delete(userid: String, medicineid: String) {
 
@@ -262,22 +211,16 @@ object FirebaseDBManager : CarerPatientStore {
         database.updateChildren(childDelete)
     }
 
-    override fun deleteReminder(userid: String, reminderid: String) {
 
-        val childDelete: MutableMap<String, Any?> = HashMap()
-        childDelete["/reminders/$reminderid"] = null
-        childDelete["/user-reminders/$userid/$reminderid"] = null
 
-        database.updateChildren(childDelete)
-    }
 
-    override fun deleteAppointment(userid: String, appointmentid: String) {
-        val childDelete: MutableMap<String, Any?> = HashMap()
-        childDelete["/appointments/$appointmentid"] = null
-        childDelete["/user-appointments/$userid/$appointmentid"] = null
+    //override fun deleteUser(userid: String) {
+   //     val childDelete: MutableMap<String, Any?> = HashMap()
+    //    childDelete["/users/$userid"] = null
+    //    childDelete["/user-users/$userid/"] = null
 
-        database.updateChildren(childDelete)
-    }
+     //   database.updateChildren(childDelete)
+    //}
 
     override fun update(userid: String, medicineid: String, medicine: CarerPatientModel) {
 
@@ -290,30 +233,20 @@ object FirebaseDBManager : CarerPatientStore {
         database.updateChildren(childUpdate)
     }
 
-    override fun updateReminder(userid: String, reminderid: String, reminder: ReminderModel) {
 
-        val reminderValues = reminder.toMap()
 
-        val childUpdate: MutableMap<String, Any?> = HashMap()
-        childUpdate["reminders/$reminderid"] = reminderValues
-        childUpdate["user-reminders/$userid/$reminderid"] = reminderValues
 
-        database.updateChildren(childUpdate)
-    }
-    override fun updateAppointment(
-        userid: String,
-        appointmentid: String,
-        appointment: AppointmentModel
-    ) {
+    //override fun updateprofile(userid: String, user: UserModel) {
 
-        val appointmentValues = appointment.toMap()
+     //  val userValues = user.toMap()
 
-        val childUpdate: MutableMap<String, Any?> = HashMap()
-        childUpdate["appointments/$appointmentid"] = appointmentValues
-        childUpdate["user-appointments/$userid/$appointmentid"] = appointmentValues
+      //  val childUpdate: MutableMap<String, Any?> = HashMap()
+       // childUpdate["users/$userid"] = userValues
+       // childUpdate["user-users/$userid/"] = userValues
 
-        database.updateChildren(childUpdate)
-    }
+     //   database.updateChildren(childUpdate)
+    //}
+
 
     fun updateImageRef(userid: String, imageUri: String) {
 
@@ -335,25 +268,5 @@ object FirebaseDBManager : CarerPatientStore {
                 }
             })
 
-       fun updateImageRefAppointment(userid: String, imageUri: String) {
-
-           val userAppointments = database.child("user-appointments").child(userid)
-           val allAppointments = database.child("appointments")
-
-            userAppointments.addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {}
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        snapshot.children.forEach {
-                            //Update Users imageUri
-                            it.ref.child("profilepic").setValue(imageUri)
-                            //Update all medicines that match 'it'
-                            val appointment = it.getValue(AppointmentModel::class.java)
-                            allAppointments.child(appointment!!.uid!!)
-                                .child("profilepic").setValue(imageUri)
-                        }
-                    }
-                })
-        }
     }
 }

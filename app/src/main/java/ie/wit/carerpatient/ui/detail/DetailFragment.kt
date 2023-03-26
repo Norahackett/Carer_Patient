@@ -48,11 +48,14 @@ class DetailFragment : Fragment() {
         return root
     }
 
+
+
     private fun render() {
        fragBinding.editMedicineName.setText("Medicine Name")
-        fragBinding.editFrequency.setText("Medicine Frequency")
-        fragBinding.editTime.setText("Medicine Time")
-        fragBinding.editAmount.setText("Medicine Amoount")
+        fragBinding.editMedicineDuration.setText("Medicine Duration")
+        //fragBinding.editMedicineTime.setText("Medicine Time")
+       // fragBinding.editAmount.setText("Medicine Amoount")
+        fragBinding.editMedicineType.setText("Medicine Type")
         fragBinding.medicinevm = detailViewModel
         Timber.i("Retrofit fragBinding.medicinevm == $fragBinding.medicinevm")
     }

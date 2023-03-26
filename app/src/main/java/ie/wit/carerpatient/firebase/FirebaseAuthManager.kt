@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.auth.User
 import ie.wit.carerpatient.R
 import timber.log.Timber
 
@@ -22,6 +23,7 @@ class FirebaseAuthManager(application: Application) {
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
     var loggedOut = MutableLiveData<Boolean>()
     var errorStatus = MutableLiveData<Boolean>()
+
 
     init {
         this.application = application
@@ -80,8 +82,8 @@ class FirebaseAuthManager(application: Application) {
             })
     }
 
-    fun register(email: String?, password: String?) {
-        firebaseAuth!!.createUserWithEmailAndPassword(email!!, password!!)
+    fun register(  email: String?, password: String?) {
+        firebaseAuth!!.createUserWithEmailAndPassword( email!!, password!!)
             .addOnCompleteListener(application!!.mainExecutor, { task ->
                 if (task.isSuccessful) {
                     liveFirebaseUser.postValue(firebaseAuth!!.currentUser)

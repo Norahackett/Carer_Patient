@@ -17,11 +17,10 @@ data class CarerPatientModel(
     var time: Long=0,
     var duration: Int = 0,
     var profilepic: String = "",
-    var firstname:String = "",
-    var lastname: String = "",
+    var firstName:  String = "",
+    var lastName:  String = "",
     var email: String? = "joe@bloggs.com")
-    : Parcelable
-{
+    : Parcelable {
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
@@ -33,9 +32,10 @@ data class CarerPatientModel(
             "duration" to duration,
             "profilepic" to profilepic,
             "email" to email,
-            "firstname" to firstname,
-            "lastname" to lastname
+            "firstname" to firstName,
+            "firstname" to lastName,
 
-        )
+
+            )
     }
 }

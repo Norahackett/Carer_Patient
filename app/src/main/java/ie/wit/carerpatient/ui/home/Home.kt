@@ -1,5 +1,6 @@
 package ie.wit.carerpatient.ui.home
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import androidx.navigation.ui.*
+import androidx.preference.PreferenceManager
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.carerpatient.R
 import ie.wit.carerpatient.databinding.HomeBinding
@@ -49,8 +51,15 @@ class Home : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.medicineFragment, R.id.reportFragment, R.id.aboutFragment, R.id.profileFragment,R.id.appointmentFragment, R.id.appointmentlistFragment, R.id.eggtimerFragment), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.medicineFragment,
+                R.id.reportFragment,
+                R.id.aboutFragment,
+                R.id.profileFragment,
+                R.id.settingsFragment,
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navView = homeBinding.navView
@@ -58,17 +67,7 @@ class Home : AppCompatActivity() {
         initNavHeader()
 
 
-//        navController.addOnDestinationChangedListener { _, destination, arguments ->
-//            when(destination.id) {
-//                R.id.reportFragment -> {
-//                    val argument = NavArgument.Builder().setDefaultValue(totalDonated).build()
-//                    destination.addArgument("totalDonated", argument)
-//
-//                }
-//            }
-//        }
     }
-
     public override fun onStart() {
         super.onStart()
         loggedInViewModel = ViewModelProvider(this).get(LoggedInViewModel::class.java)
@@ -142,6 +141,12 @@ class Home : AppCompatActivity() {
         val intent = Intent(this, Login::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+    override fun onBackPressed() {
+        ///Checks if back stack number is 0 then asks if user wants to quit app
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val confirmExit = sharedPreferences.getBoolean("confirm_exit", true)
+
     }
 
     private fun registerImagePickerCallback() {

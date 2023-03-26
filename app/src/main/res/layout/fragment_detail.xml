@@ -15,20 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.detail.DetailFragment">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/frequency"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/editQuantity"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
         <TextView
             android:id="@+id/textView5"
@@ -43,18 +30,6 @@
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <EditText
-            android:id="@+id/editFrequency"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="4dp"
-            android:textAlignment="viewStart"
-
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editQuantity" />
 
 
 
@@ -90,6 +65,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/editMedicineType"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="204dp"
+            android:layout_marginEnd="4dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@={medicinevm.observableMedicine.Type}"
+            android:textAlignment="viewStart"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editMedicineTime"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="284dp"
+            android:layout_marginEnd="4dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@={``+ medicinevm.observableMedicine.time}"
+            android:textAlignment="viewStart"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/editMedicineDuration"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="380dp"
+            android:layout_marginEnd="12dp"
+
+            android:ems="10"
+            android:inputType="number"
+            android:text="@={``+ medicinevm.observableMedicine.duration}"
+            android:textAlignment="viewStart"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -111,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginRight="8dp"
-            android:text="@string/quantity"
+            android:text="@string/amount"
             android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -124,16 +143,34 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="212dp"
             android:layout_marginEnd="8dp"
             android:text="@string/medicineType"
             android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/editMedicineTime"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@+id/editAmount"
+            app:layout_constraintHorizontal_bias="0.978"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="388dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/duration"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/editMedicineTime"
+            app:layout_constraintHorizontal_bias="0.938"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <Button
             android:id="@+id/editMedicineButton"

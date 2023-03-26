@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:useSimpleSummaryProvider="true">
+
+    <PreferenceCategory
+        app:key="theme_category"
+        app:title="Theme">
+
+        <ListPreference
+            app:entries="@array/themes_entries"
+            app:entryValues="@array/themes_values"
+            app:key="@string/theme_preferences_key"
+            app:defaultValue="@string/system_theme_preference_value"
+            app:title="Theme"
+            android:icon="@drawable/ic_baseline_theme"/>
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:key="about_category"
+        app:title="About">
+
+        <Preference
+            android:key="@string/repository_preference_key"
+            android:title="View app repository"
+            android:summary="@string/repository_desc"
+            app:icon="@drawable/ic_baseline_info" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

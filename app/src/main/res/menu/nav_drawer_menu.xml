@@ -19,29 +19,7 @@
             android:id="@+id/profileFragment"
             android:icon="@drawable/person"
             android:title="@string/profile" />
-        <item
-            android:id="@+id/appointmentFragment"
-            android:icon="@drawable/person"
-            android:title="@string/appointment" />
-        <item
-            android:id="@+id/appointmentlistFragment"
-            android:icon="@drawable/person"
-            android:title="@string/action_appointment_list" />
 
-        <item
-            android:id="@+id/reminderFragment"
-            android:icon="@drawable/person"
-            android:title="@string/action_reminder" />
-
-        <item
-            android:id="@+id/reminderreportFragment"
-            android:icon="@drawable/person"
-            android:title="@string/action_reminder_report" />
-
-        <item
-            android:id="@+id/eggtimerFragment"
-            android:icon="@drawable/person"
-            android:title="@string/action_eggtimer" />
     </group>
     <item android:title="@string/group_communicate">
         <menu>
@@ -55,6 +33,17 @@
                 android:title="@string/action_send" />
         </menu>
     </item>
+    <item android:title="@string/group_setting">
+        <menu>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_app_settings"
+                android:title="Setting" />
+
+        </menu>
+
+
+</item>
     <item android:title="Access Control">
         <menu>
             <item

@@ -16,11 +16,12 @@
 
         <ImageView
             android:id="@+id/icon"
-            style="@style/ThemeOverlay.FirebaseIcon"
             android:layout_width="286dp"
             android:layout_height="325dp"
-            android:contentDescription="@string/desc_firebase_lockup"
-            android:src="@drawable/login_homer" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_baseline_medical" />
+
+
 
         <TextView
             android:id="@+id/titleText"
@@ -59,6 +60,8 @@
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
+
+
 
             <EditText
                 android:id="@+id/fieldEmail"

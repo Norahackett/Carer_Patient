@@ -61,4 +61,6 @@
         <item name="colorControlHighlight">@color/black</item>
     </style>
 
+    <string name="theme_preferences_key">theme</string>
+
 </resources>
