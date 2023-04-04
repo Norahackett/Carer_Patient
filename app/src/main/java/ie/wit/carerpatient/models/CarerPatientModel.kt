@@ -17,8 +17,8 @@ data class CarerPatientModel(
     var time: Long=0,
     var duration: Int = 0,
     var profilepic: String = "",
-    var firstName:  String = "",
-    var lastName:  String = "",
+    var firstname: String = "",
+    var lastname: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable {
     @Exclude
@@ -32,8 +32,8 @@ data class CarerPatientModel(
             "duration" to duration,
             "profilepic" to profilepic,
             "email" to email,
-            "firstname" to firstName,
-            "firstname" to lastName,
+            "firstname" to firstname,
+            "lastname" to lastname,
 
 
             )

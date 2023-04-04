@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentActivity
 import com.makeramen.roundedimageview.RoundedTransformationBuilder
 import com.squareup.picasso.Transformation
 import ie.wit.carerpatient.R
+import ie.wit.carerpatient.main.CarerPatientApp
+import ie.wit.carerpatient.models.UserModel
 import java.io.IOException
 
 fun createLoader(activity: FragmentActivity) : AlertDialog {
@@ -75,6 +77,17 @@ fun customTransformation() : Transformation =
         .cornerRadiusDp(35F)
         .oval(false)
         .build()
+
+//fun updateProfile(app: CarerPatientApp,  profilepic: String,) {
+  //  val userId = app.auth.currentUser!!.uid
+    //val name = app.auth.currentUser!!.displayName
+    //val values = UserModel(userId, profilepic, name = String()).toMap()
+    //val childUpdates = HashMap<String, Any>()
+
+    //childUpdates["/user-photos/$userId"] = values
+      //app.database.updateChildren(childUpdates)
+
+//}
 
 fun showImagePicker(intentLauncher : ActivityResultLauncher<Intent>) {
     var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)

@@ -44,7 +44,6 @@ class MedicineFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -155,22 +154,40 @@ class MedicineFragment : Fragment() {
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 arrayListOf("pills", "ml", "mg")
+
             )
         )
+        val type = fragBinding.medicineTypeChooser.getText().toString()
+
         fragBinding.medicineTypeChooser.inputType = 0
         fragBinding.medicineTypeChooser.keyListener = null
         fragBinding.medicineTypeChooser.setOnClickListener {
             fragBinding.medicineTypeChooser.showDropDown()
         }
-
+        // val position = medicine.type.
         //set type of medicine object
-        fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
-            medicine.type = fragBinding.medicineTypeChooser.adapter.getItem(i).toString()
-        }
-
+        //fragBinding.medicineTypeChooser.setOnItemClickListener { _, _, i, _ ->
+        //    medicine.type = fragBinding.medicineTypeChooser.adapter.getItem(i).toString()
+        //  if .isValid()
+        fragBinding.medicineTypeChooser.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, i, _ ->
+                medicine.type =
+                   fragBinding.medicineTypeChooser.adapter.getItem(i).toString()
+                     //   fragBinding.medicineTypeChooser.error = ("select a type")
+                    //    fragBinding.medicineTypeChooser.requestFocus()
+                //medicine.type.setVA
+                    }
 
     }
-
+              //  if (medicine.type.isEmpty()) {
+                 //   fragBinding.medicineTypeChooser.error = ("select a type")
+                  //  fragBinding.medicineTypeChooser.requestFocus()
+                    // mtextInputLayout.setError(null);
+                    //  }
+             //   }
+          //  }
+        // }
+    //}
 
     private fun onSeekbarChanged() {
         fragBinding.durationSeekbar.setOnSeekBarChangeListener(object :
@@ -276,16 +293,39 @@ class MedicineFragment : Fragment() {
 
     private fun validateForm(): Boolean {
 
+
         var valid = true
-        if (fragBinding.medicineNameInput.text!!.isEmpty()){
+        if (fragBinding.medicineNameInput.text!!.isEmpty()) {
             fragBinding.medicineNameInput.requestFocus()
             fragBinding.medicineNameInput.error = "Required."
             valid = false
         }
 
+        if (fragBinding.amountInputField.text.toString() == "") fragBinding.amountInputField.setText(
+            "0"
+        )
+    //  fragBinding.medicineTypeChooser.keyListener = null
 
-        return valid
-    }
+
+        if (fragBinding.amountInputField.text.toString().toInt() <= 0) {
+            fragBinding.amountInputField.requestFocus()
+            fragBinding.amountInputField.error = "Please enter an amount great than 0"
+            valid = false
+        }
+
+        if (fragBinding.medicineTypeChooser.text.toString() == "") fragBinding.medicineTypeChooser.setText(
+            "Pick a Type"
+        )
+
+      if (fragBinding.medicineTypeChooser.text!!.isEmpty()) {
+          fragBinding.medicineTypeChooser.requestFocus()
+          fragBinding.medicineTypeChooser.error = "plEASE Pick a type."
+          valid = false
+      }
+        //medicine.type = fragBinding.medicineTypeChooser.adapter.getItem(i).toString()
+            return valid
+        }
+
 
 }
 

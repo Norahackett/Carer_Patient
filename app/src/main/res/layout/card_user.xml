@@ -6,11 +6,11 @@
     <data>
         <variable
             name="user"
-            type="ie.wit.carerpatient.models.User" />
+            type="ie.wit.carerpatient.models.UserModel" />
 
         <variable
-            name="reportViewModel"
-            type="ie.wit.carerpatient.ui.report.ReportViewModel" />
+            name="profileViewModel"
+            type="ie.wit.carerpatient.ui.profile.ProfileViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,7 +20,7 @@
         android:elevation="24dp">
 
         <RelativeLayout
-            android:id="@+id/cardMedicine"
+            android:id="@+id/cardUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
@@ -43,7 +43,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{user.firstName}"
+                android:text="First NAME"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="Medicine_name" />
@@ -57,7 +57,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="11dp"
                 android:layout_toEndOf="@+id/userName"
-                android:text="@{user.lastName}"
+                android:text="qUANTITY"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="@string/quantity" />
@@ -70,7 +70,7 @@
                 android:layout_marginStart="266dp"
                 android:layout_marginTop="27dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{user.firstName}"
+                android:text="@{user.userName}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="Type" />
@@ -83,7 +83,7 @@
                 android:layout_marginStart="44dp"
                 android:layout_marginTop="110dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{@string/formatTime2(user.lastName)}"
+                android:text="@{@string/formatTime2(user.UserName)}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 tools:text="02:09pm"/>

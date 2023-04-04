@@ -3,6 +3,8 @@ package ie.wit.carerpatient.firebase
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.firestore.auth.User
+import ie.wit.carerpatient.main.CarerPatientApp
 import ie.wit.carerpatient.models.*
 import timber.log.Timber
 
@@ -32,29 +34,26 @@ object FirebaseDBManager : CarerPatientStore {
                 }
             })
     }
+   //fun UpdateProfile (firebaseUser: MutableLiveData<FirebaseUser>, user: UserModel) {
 
-    //override fun findAllUser(usersList: MutableLiveData<List<UserModel>>) {
-      //  database.child("users")
-       //     .addValueEventListener(object : ValueEventListener {
-        //        override fun onCancelled(error: DatabaseError) {
-          //          Timber.i("Firebase Users error : ${error.message}")
-          //      }
+   //     database.child("user")
+    //    val uid = firebaseUser.value!!.uid
+     //   database.child(uid).setValue(user)
 
-            //    override fun onDataChange(snapshot: DataSnapshot) {
-            //        val localList = ArrayList<UserModel>()
-             //       val children = snapshot.children
-                //    children.forEach {
-               //         val user = it.getValue(UserModel::class.java)
-                //        localList.add(user!!)
-                //    }
-                  //  database.child("medicines")
-                  //      .removeEventListener(this)
+     //   }
+    //}
 
-                  //  usersList.value = localList
-                //}
-            //})
+
+  //  fun updateProfile(userid: String, profilepic: String,) {
+      //  val userId = app.auth.currentUser!!.uid
+      //  val name = app.auth.currentUser!!.displayName
+      //  val values = UserModel(userId, profilepic, name = String()).toMap()
+       // val childUpdates = HashMap<String, Any>()
+
+       // childUpdates["/user-photos/$userId"] = values
+       // app.database.updateChildren(childUpdates)
+
    // }
-
 
 
 
@@ -81,6 +80,8 @@ object FirebaseDBManager : CarerPatientStore {
                 }
             })
     }
+
+   // o
 
 
    // override fun findAllUser(userid: String, usersList: MutableLiveData<List<UserModel>>) {
@@ -123,22 +124,37 @@ object FirebaseDBManager : CarerPatientStore {
             }
     }
 
-  //  override fun findByIdProfile(
-//       userid: String,
-   //   // profileid:String,
-  //      user: MutableLiveData<UserModel>
-  //  ) {
+    override fun getUser(firebaseUser: MutableLiveData<FirebaseUser>,user: MutableLiveData<UserModel>) {
+        Timber.i("Firebase DB Reference : $database")
 
-    //    database.child("user-users").child(userid)
-    //        .child(userid).get().addOnSuccessListener {
-      //          user.value = it.getValue(UserModel::class.java)
-      //          Timber.i("firebase Got value ${it.value}")
-      //      }.addOnFailureListener {
-       //         Timber.e("firebase Error getting data $it")
-       //     }
-    //}
+        val userUid = firebaseUser.value!!.uid
+        database.child("users").child(userUid).get().addOnSuccessListener {
+            user.value = it.getValue(UserModel::class.java)
+            Timber.i("firebase Got User ${it.value}")
+        }.addOnFailureListener {
+            Timber.e("firebase Error getting user $it")
+        }
+    }
+
+    fun saveUser(
+        firebaseUser: MutableLiveData<FirebaseUser>,
+
+    ) {
+        Timber.i("in FirebaseDB createUser")
+        val userUid = firebaseUser.value!!.uid
+        val email= firebaseUser.value!!.email.toString()
+        val userName = firebaseUser.value!!.displayName.toString()
+
+        val user = UserModel(userUid, email, userName)
+
+        val userValues = user.toMap()
+
+        val childAdd = HashMap<String, Any>()
+        childAdd["/users/$userUid"] = userValues
 
 
+        database.updateChildren(childAdd)
+    }
 
 
 
@@ -152,33 +168,36 @@ object FirebaseDBManager : CarerPatientStore {
             return
         }
         medicine.uid = key
+
         val medicineValues = medicine.toMap()
 
+      //  val userValues = uid
+
         val childAdd = HashMap<String, Any>()
-        childAdd["/medicines/$key"] = medicineValues
+        childAdd["/user/$key"] = medicineValues
         childAdd["/user-medicines/$uid/$key"] = medicineValues
 
         database.updateChildren(childAdd)
     }
 
-    override fun createUser(firebaseUser: MutableLiveData<FirebaseUser>, user: User) {
-        Timber.i("Firebase DB Reference : $database")
+    //override fun createUser(firebaseUser: MutableLiveData<FirebaseUser>, user: UserModel) {
+     //  Timber.i("Firebase DB Reference : $database")
 
-        val uid = firebaseUser.value!!.uid
-        val key = database.child("user").push().key
-        if (key == null) {
-            Timber.i("Firebase Error : Key Empty")
-            return
-        }
-        user.uid = key
-        val userValues = user.toMap()
+     //   val uid = firebaseUser.value!!.uid
+     //  val key = database.child("user").push().key
+     //  if (key == null) {
+       //    Timber.i("Firebase Error : Key Empty")
+       //    return
+      //  }
+      //  user.uid = key
+      //  val userValues = user.toMap()
 
-        val childAdd = HashMap<String, Any>()
-        childAdd["/user/$key"] = userValues
-        childAdd["/user-user/$uid/$key"] = userValues
+     //  val childAdd = HashMap<String, Any>()
+     //  //childAdd["/user/$key"] = userValues
+      //  childAdd["/user/$uid/$key"] = userValues
 
-        database.updateChildren(childAdd)
-    }
+      //  database.updateChildren(childAdd)
+   // }
 
    // override fun createUser(firebaseUser: MutableLiveData<FirebaseUser>, user: UserModel) {
       //  Timber.i("Firebase DB Reference : $database")
@@ -211,6 +230,12 @@ object FirebaseDBManager : CarerPatientStore {
         database.updateChildren(childDelete)
     }
 
+    override fun deleteUser(userid: String) {
+        val childDelete: MutableMap<String, Any?> = HashMap()
+        childDelete["/user-medicines/$userid"] = null
+        //childDelete["/user-medication/$userid"] = null
+        database.updateChildren(childDelete)
+    }
 
 
 
@@ -218,6 +243,7 @@ object FirebaseDBManager : CarerPatientStore {
    //     val childDelete: MutableMap<String, Any?> = HashMap()
     //    childDelete["/users/$userid"] = null
     //    childDelete["/user-users/$userid/"] = null
+    //    childDeletede["/user-users/$userid/"] = null
 
      //   database.updateChildren(childDelete)
     //}
@@ -236,16 +262,7 @@ object FirebaseDBManager : CarerPatientStore {
 
 
 
-    //override fun updateprofile(userid: String, user: UserModel) {
 
-     //  val userValues = user.toMap()
-
-      //  val childUpdate: MutableMap<String, Any?> = HashMap()
-       // childUpdate["users/$userid"] = userValues
-       // childUpdate["user-users/$userid/"] = userValues
-
-     //   database.updateChildren(childUpdate)
-    //}
 
 
     fun updateImageRef(userid: String, imageUri: String) {

@@ -17,7 +17,7 @@ class SnoozeReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val triggerTime = SystemClock.elapsedRealtime() + DateUtils.MINUTE_IN_MILLIS
 
-        val notifyIntent = Intent(context, AlarmReceiver::class.java)
+        val notifyIntent = Intent(context, BroadcastReceiver::class.java)
         val notifyPendingIntent = PendingIntent.getBroadcast(
             context,
             REQUEST_CODE,

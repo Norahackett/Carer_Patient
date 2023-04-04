@@ -19,6 +19,9 @@
     <string name="password">Password</string>
     <string name="email_address">Email Address</string>
     <string name="are_you">Are you a Carer or Patient</string>
+    <string name="editProfileImage">Edit Profile Image</string>
+    <string name="resetPassword">Reset Password</string>
+
 
     <string name="enter_first_name">Enter First Name</string>
     <string name="enter_last_name">Enter Last Name</string>

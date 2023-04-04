@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
@@ -20,12 +21,14 @@ import com.google.firebase.auth.FirebaseUser
 import ie.wit.carerpatient.R
 import ie.wit.carerpatient.databinding.HomeBinding
 import ie.wit.carerpatient.databinding.NavHeaderBinding
+import ie.wit.carerpatient.firebase.FirebaseDBManager
 import ie.wit.carerpatient.firebase.FirebaseImageManager
 import ie.wit.carerpatient.ui.auth.LoggedInViewModel
 import ie.wit.carerpatient.ui.auth.Login
 import ie.wit.carerpatient.utils.readImageUri
 import ie.wit.carerpatient.utils.showImagePicker
 import timber.log.Timber
+import kotlin.math.log
 
 class Home : AppCompatActivity() {
 
@@ -76,15 +79,20 @@ class Home : AppCompatActivity() {
                 //val currentUser = loggedInViewModel.liveFirebaseUser.value
                 /*if (currentUser != null)*/
                 updateNavHeader(firebaseUser)
+
+
             }
         })
+
 
         loggedInViewModel.loggedOut.observe(this, Observer { loggedout ->
             if (loggedout) {
                 startActivity(Intent(this, Login::class.java))
             }
         })
+
         registerImagePickerCallback()
+
     }
 
     private fun initNavHeader() {
@@ -129,6 +137,7 @@ class Home : AppCompatActivity() {
         navHeaderBinding.navHeaderEmail.text = currentUser.email
         if(currentUser.displayName != null)
             navHeaderBinding.navHeaderName.text = currentUser.displayName
+        loggedInViewModel.saveUser(loggedInViewModel.liveFirebaseUser)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -148,6 +157,7 @@ class Home : AppCompatActivity() {
         val confirmExit = sharedPreferences.getBoolean("confirm_exit", true)
 
     }
+
 
     private fun registerImagePickerCallback() {
         intentLauncher =

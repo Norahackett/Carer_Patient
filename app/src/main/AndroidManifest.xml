@@ -45,6 +45,9 @@
         <activity
             android:name="ie.wit.carerpatient.ui.auth.Login">
         </activity>
+        <activity
+            android:name="ie.wit.carerpatient.ui.auth.ResetPasswordActivity">
+        </activity>
 
         <service
             android:name=".firebase.FirebaseMessageReceiver"

@@ -10,7 +10,7 @@ import ie.wit.carerpatient.firebase.FirebaseAuthManager
 import ie.wit.carerpatient.firebase.FirebaseDBManager
 import ie.wit.carerpatient.firebase.FirebaseImageManager
 import ie.wit.carerpatient.models.CarerPatientModel
-import ie.wit.carerpatient.models.User
+
 
 class LoginRegisterViewModel (app: Application) : AndroidViewModel(app) {
 

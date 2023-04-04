@@ -95,6 +95,28 @@ class FirebaseAuthManager(application: Application) {
             })
     }
 
+    fun deleteAccount(){
+        firebaseAuth!!.currentUser?.delete()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Timber.i( "account deleted")
+                googleSignInClient.value!!.signOut()
+                loggedOut.postValue(true)
+                errorStatus.postValue(false)
+            }
+        }
+    }
+
+
+  //  fun saveUser(){
+   //     firebaseAuth!!.currentUser?.save()?.addOnCompleteListener { task ->
+    //        if (task.isSuccessful) {
+      //          Timber.i( "account deleted")
+        //        googleSignInClient.value!!.signOut()
+         //       loggedOut.postValue(true)
+         //       errorStatus.postValue(false)
+          //  }
+        //}
+   // }
     fun logOut() {
         firebaseAuth!!.signOut()
         googleSignInClient.value!!.signOut()

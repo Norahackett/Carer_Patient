@@ -10,11 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import ie.wit.carerpatient.databinding.LoginBinding
+import androidx.navigation.fragment.findNavController
 import timber.log.Timber
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -28,6 +28,8 @@ import com.google.android.material.snackbar.Snackbar
 import ie.wit.carerpatient.R
 import ie.wit.carerpatient.ui.home.Home
 import ie.wit.carerpatient.ui.report.ReportFragmentDirections
+import androidx.navigation.findNavController as findNavController1
+import androidx.navigation.findNavController as findNavController2
 
 class Login : AppCompatActivity() {
 
@@ -47,13 +49,29 @@ class Login : AppCompatActivity() {
                 loginBinding.fieldPassword.text.toString()
             )
         }
+       /// getSupportFragmentManager().beginTransaction()
+       //     .add(android.R.id.Register, new RegisterFragment ()).commit();
 
-        // val navController = findNavController(R.id.nav_host_fragment)
+        //val navController = findNavController(R.id.nav_host_fragment)
         loginBinding.emailCreateAccountButton.setOnClickListener {
+        //    supportFragmentManager(). beginTranastio
+           createAccount(loginBinding.fieldEmail.text.toString(),
+               loginBinding.fieldPassword.text.toString())
+        }
+        loginBinding.btnForgotPassword.setOnClickListener {
+           val intent= Intent (this, ResetPasswordActivity ::class.java)
+            startActivity(intent)
+        }
+           // val action = ReportFragmentDirections.actinLoginActivtyToRegisterFragment()
+           // findNavController().navigate(action)
+            //val intent = Intent(this, Register::class.java)
+            //startActivity(intent)
+           // val navController = findNavController2(R.id.nav_host_fragment)
+          //  findNavController2().navigate(action)
+          //  val navController = findNavController(R.id.nav_host_fragment)
             //val intent = Intent(this, Register::class.java)
             //startActivity(intent)
             // = AppBarConfiguration(
-
             //(R.id.RegisterFragment)
 
           //  val navController = findNavController(R.id.nav_host_fragment)
@@ -73,12 +91,16 @@ class Login : AppCompatActivity() {
             //navView.setupWithNavController(navController)
 
 
-        }
+      //  }
 
         loginBinding.googleSignInButton.setOnClickListener { googleSignIn() }
         loginBinding.googleSignInButton.setSize(SignInButton.SIZE_WIDE)
         loginBinding.googleSignInButton.setColorScheme(0)
         //setupNavigation()
+
+    }
+
+    private fun findNavController() {
 
     }
 
@@ -187,12 +209,20 @@ class Login : AppCompatActivity() {
 
     }
 
+    private fun createAccount(email: String, password: String) {
+        Timber.d("createAccount:$email")
+        if (!validateForm()) { return }
+
+        loginRegisterViewModel.register(email,password)
+    }
+
+
     // private fun setupNavigation(){
     //     loginBinding.emailCreateAccountButton.setOnClickListener {
     //       findNavController().navigate(R.id.action_welcomeAuthFragment_to_registerFragment)
     //   }
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController2(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 

@@ -8,9 +8,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
-import android.provider.Settings.Global.getString
+
 import android.text.format.DateUtils
-import androidx.core.app.AlarmManagerCompat
+
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 

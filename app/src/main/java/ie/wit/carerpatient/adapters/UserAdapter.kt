@@ -2,22 +2,21 @@ package ie.wit.carerpatient.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
+
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import ie.wit.carerpatient.databinding.CardMedicineBinding
 
 import ie.wit.carerpatient.databinding.CardUserBinding
-import ie.wit.carerpatient.models.CarerPatientModel
-import ie.wit.carerpatient.models.User
-import ie.wit.carerpatient.utils.customTransformation
+
+
+import ie.wit.carerpatient.models.UserModel
+
 
 interface UserClickListener {
-    fun onUserClick( user: User)
+    fun onUserClick( user: UserModel)
 
 }
 
-class UserAdapter constructor(private var users: ArrayList<User>,
+class UserAdapter constructor(private var users: ArrayList<UserModel>,
 
                                       private val listener: UserClickListener ,
                                       private val readOnly: Boolean)
@@ -47,7 +46,7 @@ class UserAdapter constructor(private var users: ArrayList<User>,
 
         val readOnlyRow = readOnly
 
-        fun bind(user: User, listener: UserClickListener) {
+        fun bind(user: UserModel, listener: UserClickListener) {
             binding.root.tag = user
             binding.user = user
 
